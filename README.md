@@ -23,20 +23,6 @@ asli Hu Tao SMP (rank, top up, leaderboard, rules).
 - Halaman Fitur khusus
 - Kalkulator top up dengan stepper qty otomatis hitung total & link WhatsApp
 
-## Menyambungkan live chat ke Discord (opsional)
-
-Dua opsi, dijelaskan lebih detail di dalam `index.html` (bagian script) dan
-`discordsrv-chat-proxy/server.js`:
-
-1. **GitHub Actions** (tanpa hosting sendiri) — isi `DISCORD_BOT_TOKEN` dan
-   `DISCORD_CHANNEL_ID` sebagai GitHub Secret, workflow di
-   `.github/workflows/update-chat.yml` akan update `data/chat.json` tiap 5 menit.
-2. **Proxy server sendiri** (lebih real-time) — deploy folder
-   `discordsrv-chat-proxy/` ke hosting (Railway/Render/VPS), isi `.env`
-   sesuai `.env.example`, lalu isi `CHAT_API_URL` di `index.html`.
-
-Token bot Discord tidak pernah ditaruh langsung di file HTML manapun.
-
 ## Kontak & sosial media
 
 - WhatsApp: chat.whatsapp.com/JgSKX5OjKLU30SxYpjv9nX
