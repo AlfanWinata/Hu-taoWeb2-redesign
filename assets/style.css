@@ -127,6 +127,13 @@
     font-size:17px;
   }
 
+  .brand-icon-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+
   .navlinks{display:flex; gap:16px; font-size:12.5px; color:var(--body-text); flex-wrap:wrap; font-family:'Baloo 2',sans-serif; font-weight:600;}
   .navlinks a{color:inherit; text-decoration:none; opacity:.85; transition:opacity .15s, color .15s;}
   .navlinks a:hover, .navlinks a:focus-visible{opacity:1; color:var(--green-2);}
