@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Saran & Kritik — Hu Tao SMP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Baloo+2:wght@500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+<style>
+  /* ---------- Saran & Kritik page-specific tokens ---------- */
+  :root{
+    --fb-bg-deep: #0f0a0d;
+    --fb-card: rgba(255,255,255,.04);
+    --fb-card-border: rgba(255,255,255,.09);
+    --fb-text-dim: rgba(255,255,255,.62);
+    --fb-saran: var(--green, #4CAF7D);
+    --fb-saran-soft: rgba(76,175,125,.14);
+    --fb-kritik: #E15C5C;
+    --fb-kritik-soft: rgba(225,92,92,.14);
+    --fb-gold: var(--gold, #E8B54D);
+    --fb-bubble-me: rgba(232,181,77,.10);
+    --fb-bubble-admin: linear-gradient(135deg, rgba(232,181,77,.20), rgba(122,31,43,.24));
+  }
+
+  .fb-hero{ max-width:900px; margin:0 auto; padding:64px 24px 8px; text-align:center; }
+  .fb-eyebrow{ font-family:"JetBrains Mono",monospace; font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--fb-gold); opacity:.9; margin-bottom:10px; }
+  .fb-hero h1{ font-family:"Baloo 2",sans-serif; font-weight:800; font-size:clamp(28px,4.4vw,44px); margin:0 0 12px; }
+  .fb-hero p{ color:var(--fb-text-dim); font-family:"Space Grotesk",sans-serif; max-width:560px; margin:0 auto; line-height:1.6; }
+
+  .fb-tabs{ display:flex; justify-content:center; gap:10px; margin:28px auto 0; flex-wrap:wrap; }
+  .fb-tab{ font-family:"Baloo 2",sans-serif; font-weight:700; font-size:14.5px; padding:10px 20px; border-radius:999px; border:1px solid var(--fb-card-border); background:var(--fb-card); color:#fff; cursor:pointer; transition:transform .18s ease, background .18s ease, border-color .18s ease; }
+  .fb-tab:hover{ transform:translateY(-2px); }
+  .fb-tab[data-active="true"][data-cat="all"]{ background:rgba(255,255,255,.12); border-color:rgba(255,255,255,.3); }
+  .fb-tab[data-active="true"][data-cat="saran"]{ background:var(--fb-saran-soft); border-color:var(--fb-saran); color:var(--fb-saran); }
+  .fb-tab[data-active="true"][data-cat="kritik"]{ background:var(--fb-kritik-soft); border-color:var(--fb-kritik); color:var(--fb-kritik); }
+
+  .fb-wrap{ max-width:1080px; margin:36px auto 90px; padding:0 24px; display:grid; grid-template-columns: 340px 1fr; gap:28px; align-items:start; }
+  @media (max-width: 860px){ .fb-wrap{ grid-template-columns: 1fr; } }
+
+  .fb-card-box{ background:var(--fb-card); border:1px solid var(--fb-card-border); border-radius:20px; padding:22px; backdrop-filter: blur(14px); }
+  .fb-form{ position:sticky; top:96px; }
+  .fb-form h2{ font-family:"Baloo 2",sans-serif; font-size:19px; margin:0 0 4px; }
+  .fb-form .fb-sub{ color:var(--fb-text-dim); font-size:13.5px; margin:0 0 18px; font-family:"Space Grotesk",sans-serif; }
+
+  .fb-toggle{ display:flex; gap:8px; margin-bottom:14px; }
+  .fb-toggle button{ flex:1; padding:10px 8px; border-radius:12px; border:1px solid var(--fb-card-border); background:rgba(255,255,255,.02); color:var(--fb-text-dim); font-family:"Baloo 2",sans-serif; font-weight:700; font-size:13.5px; cursor:pointer; transition:.18s ease; }
+  .fb-toggle button.pick-saran[data-on="true"]{ background:var(--fb-saran-soft); border-color:var(--fb-saran); color:var(--fb-saran); }
+  .fb-toggle button.pick-kritik[data-on="true"]{ background:var(--fb-kritik-soft); border-color:var(--fb-kritik); color:var(--fb-kritik); }
+
+  .fb-form label{ display:block; font-size:12.5px; color:var(--fb-text-dim); margin:12px 0 6px; font-family:"Space Grotesk",sans-serif; }
+  .fb-form input, .fb-form textarea{ width:100%; box-sizing:border-box; background:rgba(0,0,0,.28); border:1px solid var(--fb-card-border); border-radius:12px; padding:11px 13px; color:#fff; font-family:"Space Grotesk",sans-serif; font-size:14px; resize:vertical; }
+  .fb-form input:focus, .fb-form textarea:focus{ outline:none; border-color:var(--fb-gold); }
+  .fb-submit{ width:100%; margin-top:16px; padding:12px; border:none; border-radius:12px; font-family:"Baloo 2",sans-serif; font-weight:800; font-size:15px; cursor:pointer; background:linear-gradient(135deg,var(--fb-gold), #c98e2e); color:#241505; transition: transform .18s ease, box-shadow .18s ease; }
+  .fb-submit:hover{ transform:translateY(-2px); box-shadow:0 10px 24px rgba(232,181,77,.28); }
+  .fb-hint{ font-size:11.5px; color:var(--fb-text-dim); margin-top:10px; font-family:"JetBrains Mono",monospace; opacity:.75; }
+
+  .fb-admin-row{ display:flex; align-items:center; justify-content:space-between; margin-bottom:16px; gap:10px; flex-wrap:wrap; }
+  .fb-admin-btn{ font-family:"JetBrains Mono",monospace; font-size:12px; padding:8px 14px; border-radius:999px; border:1px solid var(--fb-card-border); background:var(--fb-card); color:var(--fb-text-dim); cursor:pointer; display:flex; align-items:center; gap:6px; }
+  .fb-admin-btn[data-on="true"]{ border-color:var(--fb-gold); color:var(--fb-gold); background:rgba(232,181,77,.1); }
+  .fb-count{ font-family:"Space Grotesk",sans-serif; color:var(--fb-text-dim); font-size:13px; }
+
+  .fb-feed{ display:flex; flex-direction:column; gap:14px; }
+  .fb-item{ background:var(--fb-card); border:1px solid var(--fb-card-border); border-radius:18px; padding:18px 18px 14px; opacity:0; transform:translateY(14px); transition: opacity .5s ease, transform .5s ease; }
+  .fb-item.in-view{ opacity:1; transform:translateY(0); }
+
+  .fb-item-top{ display:flex; align-items:flex-start; gap:12px; }
+  .fb-avatar{ width:38px; height:38px; border-radius:50%; flex:none; background:linear-gradient(160deg,#7A1F2B,#3d0f16); border:1px solid rgba(255,255,255,.15); display:flex; align-items:center; justify-content:center; font-family:"Baloo 2",sans-serif; font-weight:800; font-size:14px; color:#fff; }
+  .fb-item-name{ font-family:"Baloo 2",sans-serif; font-weight:700; font-size:14.5px; }
+  .fb-item-meta{ display:flex; align-items:center; gap:8px; margin-top:2px; }
+  .fb-badge{ font-family:"JetBrains Mono",monospace; font-size:10.5px; letter-spacing:.05em; text-transform:uppercase; padding:2px 8px; border-radius:999px; }
+  .fb-badge.saran{ background:var(--fb-saran-soft); color:var(--fb-saran); }
+  .fb-badge.kritik{ background:var(--fb-kritik-soft); color:var(--fb-kritik); }
+  .fb-time{ font-size:11.5px; color:var(--fb-text-dim); font-family:"Space Grotesk",sans-serif; }
+
+  .fb-bubble{ margin:12px 0 0 50px; background:var(--fb-bubble-me); border:1px solid var(--fb-card-border); border-radius:14px 14px 14px 4px; padding:11px 14px; font-family:"Space Grotesk",sans-serif; font-size:14.5px; line-height:1.55; cursor:pointer; user-select:none; position:relative; -webkit-tap-highlight-color:transparent; }
+  .fb-bubble:active{ transform:scale(.99); }
+
+  .fb-reply{ margin:10px 0 0 50px; background:var(--fb-bubble-admin); border:1px solid rgba(232,181,77,.35); border-radius:14px 14px 14px 4px; padding:11px 14px; font-family:"Space Grotesk",sans-serif; font-size:14px; line-height:1.5; }
+  .fb-reply-top{ display:flex; align-items:center; gap:6px; margin-bottom:4px; }
+  .fb-reply-tag{ font-family:"JetBrains Mono",monospace; font-size:10px; letter-spacing:.06em; color:var(--fb-gold); text-transform:uppercase; }
+  .fb-reply-tag::before{ content:"👑 "; }
+
+  .fb-actions{ margin:10px 0 0 50px; display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  .fb-reactions{ display:flex; gap:6px; flex-wrap:wrap; }
+  .fb-chip{ font-family:"Space Grotesk",sans-serif; font-size:12.5px; background:rgba(255,255,255,.06); border:1px solid var(--fb-card-border); border-radius:999px; padding:3px 9px; cursor:pointer; display:flex; align-items:center; gap:4px; transition:.15s ease; }
+  .fb-chip[data-mine="true"]{ border-color:var(--fb-gold); background:rgba(232,181,77,.14); }
+  .fb-chip:hover{ transform:translateY(-1px); }
+  .fb-add-react{ font-size:12.5px; color:var(--fb-text-dim); border:1px dashed var(--fb-card-border); border-radius:999px; padding:3px 10px; cursor:pointer; font-family:"Space Grotesk",sans-serif; background:transparent; }
+  .fb-reply-btn{ margin-left:auto; font-size:12px; font-family:"JetBrains Mono",monospace; color:var(--fb-gold); background:none; border:none; cursor:pointer; opacity:.9; }
+  .fb-reply-btn:hover{ text-decoration:underline; }
+
+  .fb-reply-form{ margin:10px 0 0 50px; display:none; gap:8px; }
+  .fb-reply-form.open{ display:flex; }
+  .fb-reply-form input{ flex:1; background:rgba(0,0,0,.28); border:1px solid var(--fb-card-border); border-radius:10px; padding:9px 12px; color:#fff; font-family:"Space Grotesk",sans-serif; font-size:13.5px; }
+  .fb-reply-form button{ font-family:"Baloo 2",sans-serif; font-weight:700; font-size:13px; padding:0 16px; border-radius:10px; border:none; background:var(--fb-gold); color:#241505; cursor:pointer; }
+
+  /* WhatsApp-style floating emoji picker */
+  .fb-picker{ position:fixed; z-index:60; background:#1a1216; border:1px solid rgba(255,255,255,.14); border-radius:999px; padding:6px 8px; display:flex; gap:4px; box-shadow:0 14px 34px rgba(0,0,0,.45); transform-origin:bottom center; animation: fbPop .16s cubic-bezier(.2,1.4,.4,1) both; }
+  @keyframes fbPop{ from{ opacity:0; transform:scale(.4) translateY(6px);} to{ opacity:1; transform:scale(1) translateY(0);} }
+  .fb-picker button{ background:none; border:none; font-size:21px; cursor:pointer; padding:3px 5px; border-radius:50%; transition: transform .12s ease; line-height:1; }
+  .fb-picker button:hover{ transform:scale(1.35) translateY(-3px); }
+
+  .fb-empty{ text-align:center; padding:50px 20px; color:var(--fb-text-dim); font-family:"Space Grotesk",sans-serif; }
+</style>
+</head>
+<body>
+
+<div id="sparkles"></div>
+
+<nav>
+<div class="brand">
+  <div class="brand-icon-ring">
+    <div class="brand-icon">
+      <img src="assets/server-icon.png" alt="Hu Tao SMP" class="brand-icon-img">
+    </div>
+  </div>
+</div>
+  <div class="navlinks">
+    <a href="index.html">Beranda</a>
+    <a href="fitur.html">Fitur</a>
+    <a href="rank.html">Rank</a>
+    <a href="leaderboard.html">Leaderboard</a>
+    <a href="rules.html">Rules</a>
+    <a href="wiki.html">Wiki</a>
+    <a href="saran-kritik.html" class="active">Saran & Kritik</a>
+  </div>
+  <div class="navright">
+    <a href="https://discord.gg/TuKNkSFM5" target="_blank" rel="noopener" class="btn-pill btn-discord">💬 Discord</a>
+    <a href="https://chat.whatsapp.com/JgSKX5OjKLU30SxYpjv9nX?s=cl&p=a&ilr=0&amv=3" target="_blank" rel="noopener" class="btn-pill btn-whatsapp">🟢 WhatsApp</a>
+    <button class="hamburger" id="hamburger" aria-label="Buka menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">Beranda</a>
+  <a href="fitur.html">Fitur</a>
+  <a href="rank.html">Rank</a>
+  <a href="leaderboard.html">Leaderboard</a>
+  <a href="rules.html">Rules</a>
+  <a href="wiki.html">Wiki</a>
+  <a href="saran-kritik.html" class="active">Saran & Kritik</a>
+</div>
+
+<div class="fb-hero">
+  <div class="fb-eyebrow">📮 Suara Pemain</div>
+  <h1>Saran & Kritik</h1>
+  <p>Punya ide buat server atau ada yang kurang pas? Tulis di sini. Tim admin baca semuanya dan akan balas langsung — tap pesan buat kasih reaksi kayak di WhatsApp.</p>
+
+  <div class="fb-tabs" id="fbTabs">
+    <button class="fb-tab" data-cat="all" data-active="true">Semua</button>
+    <button class="fb-tab" data-cat="saran" data-active="false">💡 Saran</button>
+    <button class="fb-tab" data-cat="kritik" data-active="false">⚠️ Kritik</button>
+  </div>
+</div>
+
+<div class="fb-wrap">
+  <div class="fb-card-box fb-form">
+    <h2>Kirim Saran / Kritik</h2>
+    <p class="fb-sub">Bisa juga langsung in-game lewat command <b>/saran</b> atau <b>/kritik</b>.</p>
+
+    <div class="fb-toggle">
+      <button type="button" class="pick-saran" data-on="true">💡 Saran</button>
+      <button type="button" class="pick-kritik" data-on="false">⚠️ Kritik</button>
+    </div>
+
+    <label for="fbName">Nama / IGN</label>
+    <input id="fbName" type="text" maxlength="24" placeholder="Contoh: Winataaaaa">
+
+    <label for="fbMsg">Pesan kamu</label>
+    <textarea id="fbMsg" rows="4" maxlength="400" placeholder="Tulis saran atau kritik kamu di sini..."></textarea>
+
+    <button class="fb-submit" id="fbSubmitBtn">Kirim ✦</button>
+    <div class="fb-hint" id="fbFormMode">Mode Demo · tersimpan di browser ini</div>
+  </div>
+
+  <div>
+    <div class="fb-admin-row">
+      <span class="fb-count" id="fbCount">Memuat...</span>
+      <button class="fb-admin-btn" id="fbAdminToggle" data-on="false">🔒 Mode Admin</button>
+    </div>
+    <div class="fb-feed" id="fbFeed"></div>
+  </div>
+</div>
+
+<footer>
+  <div class="foot-ip-row">
+    <div class="ip-box" style="margin:0;">
+      <div class="ip-left">
+        <div class="ip-badge badge-java">IP</div>
+        <div><div class="ip-label">Server IP</div><div class="ip-addr mono">play.hutaosmp.my.id</div></div>
+      </div>
+      <button class="copy-btn" data-copy="play.hutaosmp.my.id">⧉ Salin</button>
+    </div>
+    <div class="ip-box" style="margin:0;">
+      <div class="ip-left">
+        <div class="ip-badge badge-be">#</div>
+        <div><div class="ip-label">Port</div><div class="ip-addr mono">25638</div></div>
+      </div>
+      <button class="copy-btn" data-copy="25638">⧉ Salin</button>
+    </div>
+  </div>
+  <div class="foot-links">
+    <a href="https://chat.whatsapp.com/JgSKX5OjKLU30SxYpjv9nX?s=cl&p=a&ilr=0&amv=3" target="_blank" rel="noopener">WhatsApp</a>
+    <a href="https://discord.gg/TuKNkSFM5" target="_blank" rel="noopener">Discord</a>
+    <a href="https://www.tiktok.com/@hu.tao.smp?_r=1&_t=ZS-98BG7XpfNbj" target="_blank" rel="noopener">TikTok</a>
+  </div>
+  <p>© 2026 Hu Tao SMP.</p>
+</footer>
+
+<script src="assets/site.js"></script>
+<script>
+(function(){
+  // ============================================================
+  // KONFIGURASI BACKEND
+  // Kosongkan ('') untuk mode demo (localStorage, per-browser).
+  // Isi dengan URL API kamu (mis. endpoint Railway seperti CHAT_API_URL
+  // di index.html) untuk mode live bersama admin & semua pemain.
+  // Endpoint yang diharapkan:
+  //   GET  {API}            -> array of feedback items
+  //   POST {API}             -> body {name, category, message} -> item baru
+  //   POST {API}/:id/reply   -> body {text} -> simpan balasan admin
+  //   POST {API}/:id/react   -> body {emoji} -> toggle reaksi
+  // ============================================================
+  const FEEDBACK_API_URL = '';
+  const ADMIN_PASSCODE = 'hutao2026'; // ganti sebelum dipakai beneran
+  const STORAGE_KEY = 'hutao_saran_kritik_v1';
+  const EMOJIS = ['👍','❤️','😂','😮','😢','🙏'];
+
+  const $feed = document.getElementById('fbFeed');
+  const $count = document.getElementById('fbCount');
+  const $formMode = document.getElementById('fbFormMode');
+  const $tabs = document.getElementById('fbTabs');
+  const $adminToggle = document.getElementById('fbAdminToggle');
+
+  let items = [];
+  let activeCat = 'all';
+  let isAdmin = sessionStorage.getItem('hutao_fb_admin') === '1';
+  let myId = localStorage.getItem('hutao_fb_myid');
+  if(!myId){ myId = 'u' + Math.random().toString(36).slice(2,10); localStorage.setItem('hutao_fb_myid', myId); }
+
+  const seed = [
+    { id:'seed1', name:'ArdanaZX', category:'saran', message:'Min, boleh nggak ditambah minigame parkour musiman? Seru kayaknya buat event weekend.', time: Date.now()-1000*60*60*5,
+      reply:{ text:'Ide bagus! Lagi kita rencanain buat event bulan depan 🔥', time: Date.now()-1000*60*60*3 },
+      reactions:{ '👍':4, '❤️':2 } },
+    { id:'seed2', name:'NyxTerra', category:'kritik', message:'Lag lumayan kerasa pas malam hari di area spawn, mohon dicek lagi performa servernya 🙏', time: Date.now()-1000*60*60*20,
+      reply:{ text:'Terima kasih laporannya, sudah kita optimasi entity di spawn. Kasih tau lagi kalau masih kerasa ya', time: Date.now()-1000*60*60*10 },
+      reactions:{ '🙏':3 } },
+    { id:'seed3', name:'KaelWr', category:'saran', message:'Rank Hu Tao mahal banget tapi worth it sih fasilitasnya, cuma mungkin bisa dibikin cicilan pakai points?', time: Date.now()-1000*60*60*30, reply:null, reactions:{ '😮':1 } },
+  ];
+
+  function load(){
+    try{
+      const raw = localStorage.getItem(STORAGE_KEY);
+      items = raw ? JSON.parse(raw) : seed.slice();
+      if(!raw) save();
+    }catch(e){ items = seed.slice(); }
+  }
+  function save(){ localStorage.setItem(STORAGE_KEY, JSON.stringify(items)); }
+
+  async function loadRemote(){
+    try{
+      const res = await fetch(FEEDBACK_API_URL, { cache:'no-store' });
+      if(!res.ok) throw new Error('bad response');
+      items = await res.json();
+    }catch(e){
+      $formMode.textContent = 'Gagal memuat dari server, pakai data lokal';
+      load();
+    }
+  }
+
+  function timeAgo(ts){
+    const diff = Math.max(0, Math.round((Date.now()-ts)/1000));
+    if(diff<60) return 'baru saja';
+    if(diff<3600) return Math.round(diff/60)+' menit lalu';
+    if(diff<86400) return Math.round(diff/3600)+' jam lalu';
+    return Math.round(diff/86400)+' hari lalu';
+  }
+
+  function initials(name){
+    return (name||'?').trim().split(/\s+/).map(w=>w[0]).slice(0,2).join('').toUpperCase();
+  }
+
+  function render(){
+    const filtered = activeCat==='all' ? items : items.filter(i=>i.category===activeCat);
+    const sorted = filtered.slice().sort((a,b)=>b.time-a.time);
+    $count.textContent = `${sorted.length} ${activeCat==='all' ? 'masukan' : activeCat} ditampilkan`;
+
+    if(sorted.length===0){
+      $feed.innerHTML = `<div class="fb-empty">Belum ada ${activeCat==='kritik'?'kritik':'saran'} di sini. Jadilah yang pertama! 💭</div>`;
+      return;
+    }
+
+    $feed.innerHTML = sorted.map(item=>{
+      const reactionsHtml = Object.entries(item.reactions||{}).filter(([,c])=>c>0).map(([emo,c])=>{
+        const mine = (item._mine||[]).includes(emo);
+        return `<button class="fb-chip" data-mine="${mine}" data-id="${item.id}" data-emoji="${emo}">${emo} <span>${c}</span></button>`;
+      }).join('');
+
+      const replyHtml = item.reply ? `
+        <div class="fb-reply">
+          <div class="fb-reply-top"><span class="fb-reply-tag">Balasan Admin</span><span class="fb-time">${timeAgo(item.reply.time)}</span></div>
+          ${escapeHtml(item.reply.text)}
+        </div>` : '';
+
+      const replyBtn = (isAdmin && !item.reply) ? `<button class="fb-reply-btn" data-id="${item.id}">Balas ↩</button>` : '';
+
+      const replyForm = isAdmin ? `
+        <div class="fb-reply-form" id="rf-${item.id}">
+          <input type="text" maxlength="300" placeholder="Tulis balasan sebagai admin..." id="ri-${item.id}">
+          <button data-id="${item.id}">Kirim</button>
+        </div>` : '';
+
+      return `
+        <div class="fb-item" data-id="${item.id}">
+          <div class="fb-item-top">
+            <div class="fb-avatar">${initials(item.name)}</div>
+            <div>
+              <div class="fb-item-name">${escapeHtml(item.name)}</div>
+              <div class="fb-item-meta">
+                <span class="fb-badge ${item.category}">${item.category==='saran'?'💡 Saran':'⚠️ Kritik'}</span>
+                <span class="fb-time">${timeAgo(item.time)}</span>
+              </div>
+            </div>
+          </div>
+          <div class="fb-bubble" data-id="${item.id}">${escapeHtml(item.message)}</div>
+          ${replyHtml}
+          <div class="fb-actions">
+            <div class="fb-reactions">${reactionsHtml}</div>
+            <button class="fb-add-react" data-id="${item.id}">+ reaksi</button>
+            ${replyBtn}
+          </div>
+          ${replyForm}
+        </div>`;
+    }).join('');
+
+    observeReveal();
+  }
+
+  function escapeHtml(s){
+    return (s||'').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+  }
+
+  function observeReveal(){
+    const els = document.querySelectorAll('.fb-item:not(.in-view)');
+    if(!('IntersectionObserver' in window)){ els.forEach(e=>e.classList.add('in-view')); return; }
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(en=>{ if(en.isIntersecting){ en.target.classList.add('in-view'); io.unobserve(en.target); } });
+    }, { threshold:.12 });
+    els.forEach(e=>io.observe(e));
+  }
+
+  // ---------- submit new feedback ----------
+  let pickedCategory = 'saran';
+  document.querySelector('.pick-saran').addEventListener('click', ()=>{
+    pickedCategory='saran';
+    document.querySelector('.pick-saran').dataset.on='true';
+    document.querySelector('.pick-kritik').dataset.on='false';
+  });
+  document.querySelector('.pick-kritik').addEventListener('click', ()=>{
+    pickedCategory='kritik';
+    document.querySelector('.pick-kritik').dataset.on='true';
+    document.querySelector('.pick-saran').dataset.on='false';
+  });
+
+  document.getElementById('fbSubmitBtn').addEventListener('click', async ()=>{
+    const name = document.getElementById('fbName').value.trim() || 'Anonim';
+    const message = document.getElementById('fbMsg').value.trim();
+    if(!message){ document.getElementById('fbMsg').focus(); return; }
+
+    const newItem = { id:'i'+Date.now(), name, category:pickedCategory, message, time:Date.now(), reply:null, reactions:{} };
+
+    if(FEEDBACK_API_URL){
+      try{
+        await fetch(FEEDBACK_API_URL, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({name,category:pickedCategory,message}) });
+        await loadRemote();
+      }catch(e){ console.error(e); }
+    } else {
+      items.push(newItem);
+      save();
+    }
+    document.getElementById('fbMsg').value='';
+    render();
+  });
+
+  // ---------- tabs ----------
+  $tabs.addEventListener('click', (e)=>{
+    const btn = e.target.closest('.fb-tab');
+    if(!btn) return;
+    activeCat = btn.dataset.cat;
+    $tabs.querySelectorAll('.fb-tab').forEach(b=>b.dataset.active = (b===btn) ? 'true' : 'false');
+    render();
+  });
+
+  // ---------- admin mode (demo passcode gate) ----------
+  $adminToggle.addEventListener('click', ()=>{
+    if(isAdmin){
+      isAdmin=false;
+      sessionStorage.removeItem('hutao_fb_admin');
+      $adminToggle.dataset.on='false';
+      $adminToggle.textContent='🔒 Mode Admin';
+      render();
+      return;
+    }
+    const pass = prompt('Masukkan passcode admin:');
+    if(pass===ADMIN_PASSCODE){
+      isAdmin=true;
+      sessionStorage.setItem('hutao_fb_admin','1');
+      $adminToggle.dataset.on='true';
+      $adminToggle.textContent='👑 Mode Admin Aktif';
+      render();
+    } else if(pass!==null){
+      alert('Passcode salah.');
+    }
+  });
+
+  // ---------- reply (admin) ----------
+  $feed.addEventListener('click', async (e)=>{
+    const replyBtn = e.target.closest('.fb-reply-btn');
+    if(replyBtn){
+      const id = replyBtn.dataset.id;
+      document.getElementById('rf-'+id)?.classList.add('open');
+      document.getElementById('ri-'+id)?.focus();
+      return;
+    }
+    const sendBtn = e.target.closest('.fb-reply-form button');
+    if(sendBtn){
+      const id = sendBtn.dataset.id;
+      const input = document.getElementById('ri-'+id);
+      const text = input.value.trim();
+      if(!text) return;
+
+      if(FEEDBACK_API_URL){
+        try{
+          await fetch(`${FEEDBACK_API_URL}/${id}/reply`, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({text}) });
+          await loadRemote();
+        }catch(err){ console.error(err); }
+      } else {
+        const it = items.find(i=>i.id===id);
+        if(it){ it.reply = { text, time:Date.now() }; save(); }
+      }
+      render();
+      return;
+    }
+  });
+
+  // ---------- WhatsApp-style tap-to-react ----------
+  let openPicker = null;
+  function closePicker(){ if(openPicker){ openPicker.remove(); openPicker=null; } }
+
+  $feed.addEventListener('click', (e)=>{
+    const chip = e.target.closest('.fb-chip');
+    if(chip){ toggleReaction(chip.dataset.id, chip.dataset.emoji); return; }
+
+    const trigger = e.target.closest('.fb-bubble, .fb-add-react');
+    if(!trigger) return;
+    closePicker();
+
+    const id = trigger.dataset.id;
+    const rect = trigger.getBoundingClientRect();
+    const picker = document.createElement('div');
+    picker.className = 'fb-picker';
+    picker.innerHTML = EMOJIS.map(em=>`<button data-emoji="${em}">${em}</button>`).join('');
+    document.body.appendChild(picker);
+
+    const pRect = picker.getBoundingClientRect();
+    let left = rect.left + rect.width/2 - pRect.width/2;
+    left = Math.max(8, Math.min(left, window.innerWidth - pRect.width - 8));
+    picker.style.left = left + 'px';
+    picker.style.top = Math.max(8, rect.top - pRect.height - 10) + 'px';
+
+    picker.addEventListener('click', (ev)=>{
+      const b = ev.target.closest('button');
+      if(!b) return;
+      toggleReaction(id, b.dataset.emoji);
+      closePicker();
+    });
+    openPicker = picker;
+  });
+
+  document.addEventListener('click', (e)=>{
+    if(openPicker && !e.target.closest('.fb-picker') && !e.target.closest('.fb-bubble') && !e.target.closest('.fb-add-react')){
+      closePicker();
+    }
+  });
+
+  async function toggleReaction(id, emoji){
+    if(FEEDBACK_API_URL){
+      try{
+        await fetch(`${FEEDBACK_API_URL}/${id}/react`, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({emoji, user:myId}) });
+        await loadRemote();
+      }catch(e){ console.error(e); }
+      render();
+      return;
+    }
+    const it = items.find(i=>i.id===id);
+    if(!it) return;
+    it.reactions = it.reactions || {};
+    it._mine = it._mine || [];
+    const already = it._mine.includes(emoji);
+    if(already){
+      it.reactions[emoji] = Math.max(0, (it.reactions[emoji]||1) - 1);
+      it._mine = it._mine.filter(x=>x!==emoji);
+    } else {
+      it.reactions[emoji] = (it.reactions[emoji]||0) + 1;
+      it._mine.push(emoji);
+    }
+    save();
+    render();
+  }
+
+  // ---------- boot ----------
+  (async function init(){
+    if(FEEDBACK_API_URL){
+      $formMode.textContent = 'Live · terhubung ke server';
+      await loadRemote();
+    } else {
+      $formMode.textContent = 'Mode Demo · tersimpan di browser ini';
+      load();
+    }
+    if(isAdmin){ $adminToggle.dataset.on='true'; $adminToggle.textContent='👑 Mode Admin Aktif'; }
+    render();
+  })();
+})();
+</script>
+
+</body>
+</html>
