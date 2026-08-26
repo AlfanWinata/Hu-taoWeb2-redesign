@@ -34,8 +34,9 @@
  *    - Channel ID: klik kanan channel di Discord (mode developer aktif) ->
  *      "Copy Channel ID". Pakai channel yang sama dengan "MinecraftChannel"
  *      di config DiscordSRV supaya pesannya sinkron dengan in-game chat.
- *    - ALLOWED_ORIGIN: alamat website kamu, supaya endpoint ini hanya bisa
- *      dipanggil dari website-mu sendiri (bukan sembarang situs).
+ *    - ALLOWED_ORIGIN: alamat website kamu. Bisa isi LEBIH DARI SATU,
+ *      dipisah koma, contoh:
+ *      ALLOWED_ORIGIN=https://play.hutaosmp.my.id,https://alfanwinata.github.io
  *
  * 4. Jalankan servernya:
  *      node server.js
@@ -69,7 +70,31 @@ if (!DISCORD_BOT_TOKEN || !DISCORD_CHANNEL_ID) {
   process.exit(1);
 }
 
-app.use(cors({ origin: ALLOWED_ORIGIN || '*' }));
+// ALLOWED_ORIGIN bisa berisi lebih dari satu origin, dipisah koma, contoh:
+// ALLOWED_ORIGIN=https://play.hutaosmp.my.id,https://alfanwinata.github.io
+const allowedOrigins = (ALLOWED_ORIGIN || '')
+  .split(',')
+  .map(o => o.trim())
+  .filter(Boolean);
+
+app.use(cors({
+  origin: function (origin, callback) {
+    // origin bisa undefined untuk request non-browser (curl, Postman, health check, dsb) -> izinkan
+    if (!origin) return callback(null, true);
+
+    // kalau ALLOWED_ORIGIN kosong atau berisi '*', izinkan semua origin
+    if (allowedOrigins.length === 0 || allowedOrigins.includes('*')) {
+      return callback(null, true);
+    }
+
+    if (allowedOrigins.includes(origin)) {
+      return callback(null, true);
+    }
+
+    console.warn(`⚠️  Origin ditolak oleh CORS: ${origin}`);
+    return callback(new Error('Not allowed by CORS'));
+  },
+}));
 
 function timeAgo(dateString) {
   const diffSec = Math.max(0, Math.round((Date.now() - new Date(dateString).getTime()) / 1000));
