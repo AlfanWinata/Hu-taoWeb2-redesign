@@ -77,24 +77,41 @@ const allowedOrigins = (ALLOWED_ORIGIN || '')
   .map(o => o.trim())
   .filter(Boolean);
 
+function isOriginAllowed(origin) {
+  if (!origin) return true; // request non-browser (curl, health check, dsb)
+  if (allowedOrigins.length === 0 || allowedOrigins.includes('*')) return true;
+  return allowedOrigins.includes(origin);
+}
+
 app.use(cors({
   origin: function (origin, callback) {
-    // origin bisa undefined untuk request non-browser (curl, Postman, health check, dsb) -> izinkan
-    if (!origin) return callback(null, true);
-
-    // kalau ALLOWED_ORIGIN kosong atau berisi '*', izinkan semua origin
-    if (allowedOrigins.length === 0 || allowedOrigins.includes('*')) {
+    if (isOriginAllowed(origin)) {
       return callback(null, true);
     }
-
-    if (allowedOrigins.includes(origin)) {
-      return callback(null, true);
-    }
-
     console.warn(`⚠️  Origin ditolak oleh CORS: ${origin}`);
-    return callback(new Error('Not allowed by CORS'));
+    console.warn(`   Origin yang diizinkan saat ini: ${allowedOrigins.join(', ') || '(kosong)'}`);
+    // JANGAN lempar Error di sini -> Express akan balas 500 mentah tanpa
+    // CORS header sama sekali. Cukup jangan set header allow-origin (callback null, false),
+    // biar browser sendiri yang blok, dan kita tetap bisa balas JSON yang rapi di bawah.
+    return callback(null, false);
   },
 }));
+
+// kalau origin ditolak oleh CORS di atas, request tetap lanjut ke sini
+// (browser yang akan blok responsnya), tapi setidaknya server tidak crash
+// dan kita dapat log yang jelas + response yang informatif buat debugging
+// lewat curl/Postman.
+app.use((req, res, next) => {
+  const origin = req.headers.origin;
+  if (origin && !isOriginAllowed(origin)) {
+    return res.status(403).json({
+      error: 'Origin tidak diizinkan',
+      origin,
+      allowedOrigins,
+    });
+  }
+  next();
+});
 
 function timeAgo(dateString) {
   const diffSec = Math.max(0, Math.round((Date.now() - new Date(dateString).getTime()) / 1000));
@@ -145,6 +162,13 @@ app.get('/messages', async (req, res) => {
     console.error('Gagal mengambil pesan Discord:', err.message);
     res.status(502).json({ error: 'Gagal mengambil pesan dari Discord' });
   }
+});
+
+// safety net: kalau ada error lain yang tidak tertangkap, tetap balas JSON
+// rapi (bukan 500 kosong dari Express default), supaya lebih gampang di-debug.
+app.use((err, req, res, next) => {
+  console.error('Unhandled error:', err.message);
+  res.status(500).json({ error: 'Internal server error', message: err.message });
 });
 
 app.listen(PORT, () => {
