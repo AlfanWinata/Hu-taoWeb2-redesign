@@ -53,6 +53,15 @@
 
 <div class="feature-section">
 
+  <div class="lb-tabs reveal" style="animation-delay:.35s">
+    <button class="tab-btn season-tab-btn active" data-season="season-1">S1</button>
+    <button class="tab-btn season-tab-btn" data-season="season-2">S2 <span style="opacity:.6; font-size:10px;">· Segera</span></button>
+    <button class="tab-btn season-tab-btn" data-season="season-3">S3 <span style="opacity:.6; font-size:10px;">· Segera</span></button>
+  </div>
+
+  <!-- ===== SEASON 1 ===== -->
+  <div class="season-panel active" id="season-1">
+
   <div class="lb-tabs reveal" style="animation-delay:.4s">
     <button class="tab-btn lb-tab-btn active" data-lb="lb-ceo">💰 Top CEO</button>
     <button class="tab-btn lb-tab-btn" data-lb="lb-kills">⚔️ Top Kills</button>
@@ -76,6 +85,25 @@
     Data Season 1 — diperbarui manual oleh admin setiap akhir season. Ingin namamu ada di sini season depan? Terus bermain dan pantau papan ini!
   </div>
 
+  </div>
+  <!-- ===== END SEASON 1 ===== -->
+
+  <!-- ===== SEASON 2 ===== -->
+  <div class="season-panel" id="season-2" style="display:none;">
+    <div class="store-note" style="max-width:480px; text-align:center;">
+      🔒 Leaderboard Season 2 belum dimulai. Pantau terus halaman ini setelah Season 1 berakhir!
+    </div>
+  </div>
+  <!-- ===== END SEASON 2 ===== -->
+
+  <!-- ===== SEASON 3 ===== -->
+  <div class="season-panel" id="season-3" style="display:none;">
+    <div class="store-note" style="max-width:480px; text-align:center;">
+      🔒 Leaderboard Season 3 belum dimulai. Pantau terus halaman ini setelah Season 2 berakhir!
+    </div>
+  </div>
+  <!-- ===== END SEASON 3 ===== -->
+
 </div>
 
 <footer>
@@ -83,16 +111,16 @@
     <div class="ip-box" style="margin:0;">
       <div class="ip-left">
         <div class="ip-badge badge-java">IP</div>
-        <div><div class="ip-label">Server IP</div><div class="ip-addr mono">hu-tao.nexuscloud.id</div></div>
+        <div><div class="ip-label">Server IP</div><div class="ip-addr mono">play.hutaosmp.my.id</div></div>
       </div>
-      <button class="copy-btn" data-copy="hu-tao.nexuscloud.id">⧉ Salin</button>
+      <button class="copy-btn" data-copy="play.hutaosmp.my.id">⧉ Salin</button>
     </div>
     <div class="ip-box" style="margin:0;">
       <div class="ip-left">
         <div class="ip-badge badge-be">#</div>
-        <div><div class="ip-label">Port</div><div class="ip-addr mono">25502</div></div>
+        <div><div class="ip-label">Port</div><div class="ip-addr mono">25638</div></div>
       </div>
-      <button class="copy-btn" data-copy="25502">⧉ Salin</button>
+      <button class="copy-btn" data-copy="25638">⧉ Salin</button>
     </div>
   </div>
   <div class="foot-links">
@@ -104,5 +132,18 @@
 </footer>
 
 <script src="assets/site.js"></script>
+<script>
+  // ---------- season tab switcher ----------
+  document.querySelectorAll('.season-tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.season-tab-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const target = btn.getAttribute('data-season');
+      document.querySelectorAll('.season-panel').forEach(panel => {
+        panel.style.display = (panel.id === target) ? 'block' : 'none';
+      });
+    });
+  });
+</script>
 </body>
 </html>
