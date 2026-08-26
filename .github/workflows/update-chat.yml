@@ -1,0 +1,61 @@
+name: Update Live Chat (Discord)
+
+# Cara kerja:
+# 1. Berjalan otomatis tiap 5 menit (jadwal minimum praktis di GitHub Actions)
+# 2. Ambil pesan terbaru dari channel Discord yang dijembatani DiscordSRV
+# 3. Simpan versi bersih (nama, isi pesan, waktu) ke data/chat.json
+# 4. Commit & push file itu — website tinggal fetch file ini via raw.githubusercontent.com
+#
+# Bot token TIDAK PERNAH masuk ke file ini atau ke repo — disimpan sebagai
+# GitHub Secret dan hanya "dipinjam" saat job ini berjalan di server GitHub.
+
+on:
+  schedule:
+    - cron: '*/5 * * * *'   # tiap 5 menit
+  workflow_dispatch:         # tombol "Run workflow" manual di tab Actions
+
+permissions:
+  contents: write
+
+jobs:
+  update-chat:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Ambil pesan terbaru dari Discord
+        env:
+          DISCORD_BOT_TOKEN: ${{ secrets.DISCORD_BOT_TOKEN }}
+          DISCORD_CHANNEL_ID: ${{ secrets.DISCORD_CHANNEL_ID }}
+        run: |
+          mkdir -p data
+
+          curl -s -H "Authorization: Bot $DISCORD_BOT_TOKEN" \
+            "https://discord.com/api/v10/channels/$DISCORD_CHANNEL_ID/messages?limit=20" \
+            -o raw.json
+
+          # Bersihkan hanya field yang perlu ditampilkan di website —
+          # jangan expose payload mentah Discord (ID user, embed, dsb).
+          jq '[ .[] | select(.content != null and .content != "") | {
+                  id: .id,
+                  name: (.member.nick // .author.global_name // .author.username // "Pemain"),
+                  content: (.content | .[0:200]),
+                  tag: (if .webhook_id then "DISCORD" else null end),
+                  timestamp: .timestamp
+                } ] | reverse' raw.json > data/chat.json
+
+          rm raw.json
+          cat data/chat.json
+
+      - name: Commit & push kalau ada perubahan
+        run: |
+          git config user.name "hutao-smp-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/chat.json
+          if git diff --cached --quiet; then
+            echo "Tidak ada pesan baru, skip commit."
+          else
+            git commit -m "chore: update live chat data"
+            git push
+          fi

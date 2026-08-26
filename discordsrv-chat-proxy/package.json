@@ -1,0 +1,17 @@
+{
+  "name": "discordsrv-chat-proxy",
+  "version": "1.0.0",
+  "description": "Proxy aman untuk menampilkan chat DiscordSRV di website Hu Tao SMP tanpa membocorkan bot token",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

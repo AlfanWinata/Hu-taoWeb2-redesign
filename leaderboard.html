@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leaderboard — Hu Tao SMP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Baloo+2:wght@500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<div id="sparkles"></div>
+
+<nav style="animation: navDrop .6s cubic-bezier(.22,1,.36,1) both;">
+  <div class="brand">
+    <div class="brand-icon-ring">
+      <div class="brand-icon">🏮</div>
+    </div>
+  </div>
+  <div class="navlinks">
+    <a href="index.html">Beranda</a>
+    <a href="fitur.html">Fitur</a>
+    <a href="rank.html">Rank</a>
+    <a href="leaderboard.html" class="active">Leaderboard</a>
+    <a href="rules.html">Rules</a>
+    <a href="wiki.html">Wiki</a>
+  </div>
+  <div class="navright">
+    <a href="https://discord.gg/TuKNkSFM5" target="_blank" rel="noopener" class="btn-pill btn-discord">💬 Discord</a>
+    <a href="https://chat.whatsapp.com/JgSKX5OjKLU30SxYpjv9nX?s=cl&p=a&ilr=0&amv=3" target="_blank" rel="noopener" class="btn-pill btn-whatsapp">🟢 WhatsApp</a>
+    <button class="hamburger" id="hamburger" aria-label="Buka menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">Beranda</a>
+  <a href="fitur.html">Fitur</a>
+  <a href="rank.html">Rank</a>
+  <a href="leaderboard.html" class="active">Leaderboard</a>
+  <a href="rules.html">Rules</a>
+  <a href="wiki.html">Wiki</a>
+</div>
+
+<div class="page-hero">
+  <div class="eyebrow reveal" style="animation-delay:.1s">🏆 Papan Peringkat</div>
+  <h1 class="reveal" style="animation-delay:.2s">Leaderboard</h1>
+  <p class="reveal" style="animation-delay:.35s">Pemain paling aktif dan paling tajir di Hu Tao SMP minggu ini. Naik ke posisi atas dan buktikan kamu pantas dapat spot di papan ini.</p>
+</div>
+
+<div class="feature-section">
+
+  <div class="lb-tabs reveal" style="animation-delay:.4s">
+    <button class="tab-btn lb-tab-btn active" data-lb="lb-playtime">⏱️ Playtime</button>
+    <button class="tab-btn lb-tab-btn" data-lb="lb-balance">💰 Balance</button>
+    <button class="tab-btn lb-tab-btn" data-lb="lb-kills">⚔️ PvP Kills</button>
+  </div>
+
+  <!-- Playtime -->
+  <div class="lb-panel store-panel active" id="lb-playtime">
+    <div class="lb-list">
+      <div class="lb-row top1"><div class="lb-rank">1</div><div class="lb-avatar"></div><div class="lb-name">ArdanaZX</div><div class="lb-value">312 jam</div></div>
+      <div class="lb-row top2"><div class="lb-rank">2</div><div class="lb-avatar"></div><div class="lb-name">NyxTerra</div><div class="lb-value">287 jam</div></div>
+      <div class="lb-row top3"><div class="lb-rank">3</div><div class="lb-avatar"></div><div class="lb-name">KaelWr</div><div class="lb-value">254 jam</div></div>
+      <div class="lb-row"><div class="lb-rank">4</div><div class="lb-avatar"></div><div class="lb-name">Rusdiyoo</div><div class="lb-value">201 jam</div></div>
+      <div class="lb-row"><div class="lb-rank">5</div><div class="lb-avatar"></div><div class="lb-name">Miyu_Chan</div><div class="lb-value">176 jam</div></div>
+    </div>
+  </div>
+
+  <!-- Balance -->
+  <div class="lb-panel store-panel" id="lb-balance">
+    <div class="lb-list">
+      <div class="lb-row top1"><div class="lb-rank">1</div><div class="lb-avatar"></div><div class="lb-name">Rusdiyoo</div><div class="lb-value">Rp42.500.000</div></div>
+      <div class="lb-row top2"><div class="lb-rank">2</div><div class="lb-avatar"></div><div class="lb-name">ArdanaZX</div><div class="lb-value">Rp38.100.000</div></div>
+      <div class="lb-row top3"><div class="lb-rank">3</div><div class="lb-avatar"></div><div class="lb-name">Miyu_Chan</div><div class="lb-value">Rp29.900.000</div></div>
+      <div class="lb-row"><div class="lb-rank">4</div><div class="lb-avatar"></div><div class="lb-name">KaelWr</div><div class="lb-value">Rp21.300.000</div></div>
+      <div class="lb-row"><div class="lb-rank">5</div><div class="lb-avatar"></div><div class="lb-name">NyxTerra</div><div class="lb-value">Rp18.750.000</div></div>
+    </div>
+  </div>
+
+  <!-- Kills -->
+  <div class="lb-panel store-panel" id="lb-kills">
+    <div class="lb-list">
+      <div class="lb-row top1"><div class="lb-rank">1</div><div class="lb-avatar"></div><div class="lb-name">KaelWr</div><div class="lb-value">184</div></div>
+      <div class="lb-row top2"><div class="lb-rank">2</div><div class="lb-avatar"></div><div class="lb-name">NyxTerra</div><div class="lb-value">161</div></div>
+      <div class="lb-row top3"><div class="lb-rank">3</div><div class="lb-avatar"></div><div class="lb-name">ArdanaZX</div><div class="lb-value">139</div></div>
+      <div class="lb-row"><div class="lb-rank">4</div><div class="lb-avatar"></div><div class="lb-name">Miyu_Chan</div><div class="lb-value">97</div></div>
+      <div class="lb-row"><div class="lb-rank">5</div><div class="lb-avatar"></div><div class="lb-name">Rusdiyoo</div><div class="lb-value">82</div></div>
+    </div>
+  </div>
+
+  <div class="store-note reveal" style="animation-delay:.5s">
+    Data di atas contoh tampilan. Hubungkan ke plugin statistik server (mis. PlaceholderAPI + database plugin) untuk data real-time.
+  </div>
+
+</div>
+
+<footer>
+  <div class="foot-ip-row">
+    <div class="ip-box" style="margin:0;">
+      <div class="ip-left">
+        <div class="ip-badge badge-java">IP</div>
+        <div><div class="ip-label">Server IP</div><div class="ip-addr mono">hu-tao.nexuscloud.id</div></div>
+      </div>
+      <button class="copy-btn" data-copy="hu-tao.nexuscloud.id">⧉ Salin</button>
+    </div>
+    <div class="ip-box" style="margin:0;">
+      <div class="ip-left">
+        <div class="ip-badge badge-be">#</div>
+        <div><div class="ip-label">Port</div><div class="ip-addr mono">25502</div></div>
+      </div>
+      <button class="copy-btn" data-copy="25502">⧉ Salin</button>
+    </div>
+  </div>
+  <div class="foot-links">
+    <a href="https://chat.whatsapp.com/JgSKX5OjKLU30SxYpjv9nX?s=cl&p=a&ilr=0&amv=3" target="_blank" rel="noopener">WhatsApp</a>
+    <a href="https://discord.gg/TuKNkSFM5" target="_blank" rel="noopener">Discord</a>
+    <a href="https://www.tiktok.com/@hu.tao.smp?_r=1&_t=ZS-98BG7XpfNbj" target="_blank" rel="noopener">TikTok</a>
+  </div>
+  <p>© 2026 Hu Tao SMP. Tidak berafiliasi dengan Mojang / Microsoft.</p>
+</footer>
+
+<script src="assets/site.js"></script>
+</body>
+</html>

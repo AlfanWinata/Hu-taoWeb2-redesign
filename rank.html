@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rank & Top Up — Hu Tao SMP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Baloo+2:wght@500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<div id="sparkles"></div>
+
+<nav style="animation: navDrop .6s cubic-bezier(.22,1,.36,1) both;">
+  <div class="brand">
+    <div class="brand-icon-ring">
+      <div class="brand-icon">🏮</div>
+    </div>
+  </div>
+  <div class="navlinks">
+    <a href="index.html">Beranda</a>
+    <a href="fitur.html">Fitur</a>
+    <a href="rank.html" class="active">Rank</a>
+    <a href="leaderboard.html">Leaderboard</a>
+    <a href="rules.html">Rules</a>
+    <a href="wiki.html">Wiki</a>
+  </div>
+  <div class="navright">
+    <a href="https://discord.gg/TuKNkSFM5" target="_blank" rel="noopener" class="btn-pill btn-discord">💬 Discord</a>
+    <a href="https://chat.whatsapp.com/JgSKX5OjKLU30SxYpjv9nX?s=cl&p=a&ilr=0&amv=3" target="_blank" rel="noopener" class="btn-pill btn-whatsapp">🟢 WhatsApp</a>
+    <button class="hamburger" id="hamburger" aria-label="Buka menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">Beranda</a>
+  <a href="fitur.html">Fitur</a>
+  <a href="rank.html" class="active">Rank</a>
+  <a href="leaderboard.html">Leaderboard</a>
+  <a href="rules.html">Rules</a>
+  <a href="wiki.html">Wiki</a>
+</div>
+
+<div class="page-hero">
+  <div class="eyebrow reveal" style="animation-delay:.1s">🛒 Toko Server</div>
+  <h1 class="reveal" style="animation-delay:.2s">Rank & Top Up</h1>
+  <p class="reveal" style="animation-delay:.35s">Pilih rank sesuai kebutuhanmu, atau isi ulang Money, Point, dan Skill langsung dari sini. Semua pembelian diproses manual lewat WhatsApp admin.</p>
+</div>
+
+<div class="feature-section">
+
+  <h2 class="section-label" style="margin-top:0;">Enam Tingkatan</h2>
+  <p class="section-sub">Makin tinggi rank, makin lengkap fasilitas yang kamu dapat di dunia Hu Tao SMP.</p>
+
+  <div class="price-grid" style="margin-top:26px;">
+
+    <!-- Yelan -->
+    <div class="price-card scroll-reveal">
+      <div class="price-icon fi-green">🔥</div>
+      <h3>Yelan</h3>
+      <div class="price-tag">Rp15.000 <span>Premium Rank I</span></div>
+      <ul class="price-features">
+        <li>/feed, /anvil, /workbench, /repair</li>
+        <li>/pv3 · /kit · /enderchest</li>
+        <li>Claim block 15.000 · Sethome 5</li>
+      </ul>
+      <a href="https://wa.me/6285761779383?text=Halo%20Admin%2C%20saya%20mau%20beli%20rank%20Yelan%20(Rp15.000)%20IGN%3A%20" target="_blank" rel="noopener" class="buy-btn">Beli via WhatsApp</a>
+    </div>
+
+    <!-- Bennet -->
+    <div class="price-card scroll-reveal" style="transition-delay:.05s">
+      <div class="price-icon fi-gold">🔥</div>
+      <h3>Bennet</h3>
+      <div class="price-tag">Rp30.000 <span>Premium Rank II</span></div>
+      <ul class="price-features">
+        <li>+ Semua fasilitas Yelan</li>
+        <li>/pv5 · /kit · /enderchest · /fly</li>
+        <li>Claim block 35.000 · Sethome 8</li>
+      </ul>
+      <div class="plus-note">Hemat 14% dari Rp35.000</div>
+      <a href="https://wa.me/6285761779383?text=Halo%20Admin%2C%20saya%20mau%20beli%20rank%20Bennet%20(Rp30.000)%20IGN%3A%20" target="_blank" rel="noopener" class="buy-btn">Beli via WhatsApp</a>
+    </div>
+
+    <!-- XingQiu -->
+    <div class="price-card scroll-reveal" style="transition-delay:.1s">
+      <div class="price-icon fi-sky">🔥</div>
+      <h3>XingQiu</h3>
+      <div class="price-tag">Rp55.000 <span>Premium Rank III</span></div>
+      <ul class="price-features">
+        <li>+ Semua fasilitas Bennet</li>
+        <li>/pv8 · /invsee</li>
+        <li>Claim block 70.000 · Sethome 12</li>
+      </ul>
+      <div class="plus-note">Hemat 15% dari Rp65.000</div>
+      <a href="https://wa.me/6285761779383?text=Halo%20Admin%2C%20saya%20mau%20beli%20rank%20XingQiu%20(Rp55.000)%20IGN%3A%20" target="_blank" rel="noopener" class="buy-btn">Beli via WhatsApp</a>
+    </div>
+
+    <!-- ZhongLi -->
+    <div class="price-card popular scroll-reveal" style="transition-delay:.15s">
+      <div class="price-ribbon">Populer</div>
+      <div class="price-icon fi-soul">🔥</div>
+      <h3>ZhongLi</h3>
+      <div class="price-tag">Rp100.000 <span>Elite Rank</span></div>
+      <ul class="price-features">
+        <li>+ Semua fasilitas XingQiu</li>
+        <li>/repair all · /pv12</li>
+        <li>/timeset · /weather · /endersee</li>
+        <li>Claim block 100.000 · Sethome 15</li>
+      </ul>
+      <div class="plus-note">Hemat 17% dari Rp120.000</div>
+      <a href="https://wa.me/6285761779383?text=Halo%20Admin%2C%20saya%20mau%20beli%20rank%20ZhongLi%20(Rp100.000)%20IGN%3A%20" target="_blank" rel="noopener" class="buy-btn">Beli via WhatsApp</a>
+    </div>
+
+    <!-- XiangLing -->
+    <div class="price-card scroll-reveal" style="transition-delay:.2s">
+      <div class="price-icon fi-green">🔥</div>
+      <h3>XiangLing</h3>
+      <div class="price-tag">Rp120.000 <span>Legend Rank</span></div>
+      <ul class="price-features">
+        <li>+ Semua fasilitas ZhongLi</li>
+        <li>/pv16 · /tp</li>
+        <li>Claim block 150.000 · Sethome 20</li>
+      </ul>
+      <div class="plus-note">Hemat 20% dari Rp150.000</div>
+      <a href="https://wa.me/6285761779383?text=Halo%20Admin%2C%20saya%20mau%20beli%20rank%20XiangLing%20(Rp120.000)%20IGN%3A%20" target="_blank" rel="noopener" class="buy-btn">Beli via WhatsApp</a>
+    </div>
+
+    <!-- Hu Tao -->
+    <div class="price-card scroll-reveal" style="transition-delay:.25s; border-color:var(--gold-deep);">
+      <div class="price-icon fi-gold">🏮</div>
+      <h3>Hu Tao</h3>
+      <div class="price-tag">Rp225.000 <span>Mythic Rank</span></div>
+      <ul class="price-features">
+        <li>+ Semua fasilitas XiangLing</li>
+        <li>/speed · //wand · Boost skill</li>
+        <li>Claim block & sethome unlimited</li>
+      </ul>
+      <div class="plus-note">Hemat 25% dari Rp300.000</div>
+      <a href="https://wa.me/6285761779383?text=Halo%20Admin%2C%20saya%20mau%20beli%20rank%20Hu%20Tao%20(Rp225.000)%20IGN%3A%20" target="_blank" rel="noopener" class="buy-btn">Beli via WhatsApp</a>
+    </div>
+
+  </div>
+
+  <h2 class="section-label">Isi Ulang Saldo</h2>
+  <p class="section-sub">Atur jumlah yang kamu mau, total harga terhitung otomatis, lalu kirim pesanan langsung ke admin via WhatsApp.</p>
+
+  <div class="price-grid" style="margin-top:26px;">
+
+    <div class="price-card scroll-reveal">
+      <div class="price-icon fi-green">💰</div>
+      <h3>Money</h3>
+      <div class="price-tag" style="font-size:14px;">Rp100rb (in-game) = <span style="color:var(--green-2); font-weight:800;">Rp5.000</span></div>
+      <div class="stepper">
+        <button type="button" onclick="stepQty('money', -1)">−</button>
+        <input type="text" id="money-qty" value="1" readonly>
+        <button type="button" onclick="stepQty('money', 1)">+</button>
+      </div>
+      <div class="offer-total">Total: <span id="money-total">Rp5.000</span></div>
+      <a id="money-link" href="#" target="_blank" rel="noopener" class="buy-btn">Pesan via WhatsApp</a>
+    </div>
+
+    <div class="price-card scroll-reveal" style="transition-delay:.05s">
+      <div class="price-icon fi-sky">✨</div>
+      <h3>Point</h3>
+      <div class="price-tag" style="font-size:14px;">20 Point = <span style="color:var(--green-2); font-weight:800;">Rp1.000</span></div>
+      <div class="stepper">
+        <button type="button" onclick="stepQty('point', -1)">−</button>
+        <input type="text" id="point-qty" value="1" readonly>
+        <button type="button" onclick="stepQty('point', 1)">+</button>
+      </div>
+      <div class="offer-total">Total: <span id="point-total">Rp1.000</span></div>
+      <a id="point-link" href="#" target="_blank" rel="noopener" class="buy-btn">Pesan via WhatsApp</a>
+    </div>
+
+    <div class="price-card scroll-reveal" style="transition-delay:.1s">
+      <div class="price-icon fi-soul">🔥</div>
+      <h3>Skill</h3>
+      <div class="price-tag" style="font-size:14px;">1 Skill = <span style="color:var(--green-2); font-weight:800;">Rp7.000</span></div>
+      <div class="stepper">
+        <button type="button" onclick="stepQty('skill', -1)">−</button>
+        <input type="text" id="skill-qty" value="1" readonly>
+        <button type="button" onclick="stepQty('skill', 1)">+</button>
+      </div>
+      <div class="offer-total">Total: <span id="skill-total">Rp7.000</span></div>
+      <a id="skill-link" href="#" target="_blank" rel="noopener" class="buy-btn">Pesan via WhatsApp</a>
+    </div>
+
+  </div>
+
+  <div class="store-note reveal" style="animation-delay:.5s">
+    Harga di atas mengikuti tarif resmi Hu Tao SMP. Semua transaksi diproses manual oleh admin lewat WhatsApp, jadi belum ada pembayaran otomatis di halaman ini.
+  </div>
+
+</div>
+
+<footer>
+  <div class="foot-ip-row">
+    <div class="ip-box" style="margin:0;">
+      <div class="ip-left">
+        <div class="ip-badge badge-java">IP</div>
+        <div><div class="ip-label">Server IP</div><div class="ip-addr mono">hu-tao.nexuscloud.id</div></div>
+      </div>
+      <button class="copy-btn" data-copy="hu-tao.nexuscloud.id">⧉ Salin</button>
+    </div>
+    <div class="ip-box" style="margin:0;">
+      <div class="ip-left">
+        <div class="ip-badge badge-be">#</div>
+        <div><div class="ip-label">Port</div><div class="ip-addr mono">25502</div></div>
+      </div>
+      <button class="copy-btn" data-copy="25502">⧉ Salin</button>
+    </div>
+  </div>
+  <div class="foot-links">
+    <a href="https://chat.whatsapp.com/JgSKX5OjKLU30SxYpjv9nX?s=cl&p=a&ilr=0&amv=3" target="_blank" rel="noopener">WhatsApp</a>
+    <a href="https://discord.gg/TuKNkSFM5" target="_blank" rel="noopener">Discord</a>
+    <a href="https://www.tiktok.com/@hu.tao.smp?_r=1&_t=ZS-98BG7XpfNbj" target="_blank" rel="noopener">TikTok</a>
+  </div>
+  <p>© 2026 Hu Tao SMP. Tidak berafiliasi dengan Mojang / Microsoft.</p>
+</footer>
+
+<script src="assets/site.js"></script>
+</body>
+</html>

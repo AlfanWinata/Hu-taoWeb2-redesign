@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hu Tao SMP — Server Minecraft Survival</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Baloo+2:wght@500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<div id="sparkles"></div>
+
+<nav style="animation: navDrop .6s cubic-bezier(.22,1,.36,1) both;">
+  <div class="brand">
+    <div class="brand-icon-ring">
+      <div class="brand-icon">🏮</div>
+    </div>
+  </div>
+  <div class="navlinks">
+    <a href="index.html" class="active">Beranda</a>
+    <a href="fitur.html">Fitur</a>
+    <a href="rank.html">Rank</a>
+    <a href="leaderboard.html">Leaderboard</a>
+    <a href="rules.html">Rules</a>
+    <a href="wiki.html">Wiki</a>
+  </div>
+  <div class="navright">
+    <a href="https://discord.gg/TuKNkSFM5" target="_blank" rel="noopener" class="btn-pill btn-discord">💬 Discord</a>
+    <a href="https://chat.whatsapp.com/JgSKX5OjKLU30SxYpjv9nX?s=cl&p=a&ilr=0&amv=3" target="_blank" rel="noopener" class="btn-pill btn-whatsapp">🟢 WhatsApp</a>
+    <button class="hamburger" id="hamburger" aria-label="Buka menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html" class="active">Beranda</a>
+  <a href="fitur.html">Fitur</a>
+  <a href="rank.html">Rank</a>
+  <a href="leaderboard.html">Leaderboard</a>
+  <a href="rules.html">Rules</a>
+  <a href="wiki.html">Wiki</a>
+</div>
+
+<div class="hero-wrap" id="heroWrap">
+  <!-- floating overworld blocks injected by JS for responsive positioning -->
+
+  <div class="hero-grid">
+    <div class="hero-left">
+      <div class="status-card reveal-scale" style="animation-delay:.15s">
+        <div class="status-top">
+          <div class="status-icon" id="statIcon">🔥</div>
+          <div>
+            <div class="status-title">Hu Tao SMP</div>
+            <div class="status-sub" id="statSub"><span class="dot" id="statDot"></span> Memeriksa server…</div>
+          </div>
+        </div>
+        <div class="stat-row"><span>Pemain</span><b id="statPlayers">— / —</b></div>
+        <div class="bar-track"><div class="bar-fill" id="statBar" style="width:0%"></div></div>
+        <div class="stat-row"><span>Versi</span><b id="statVersion">—</b></div>
+        <div class="stat-row"><span>TPS</span><b class="stat-green" id="statTps">—</b></div>
+        <div class="stat-row"><span>Status</span><b class="stat-green" id="statStatus">Memeriksa…</b></div>
+        <div class="stat-row"><span>Terakhir dicek</span><b class="stat-gold" id="statChecked">—</b></div>
+        <div class="live-note" id="statUpdated">Menghubungkan ke hu-tao.nexuscloud.id…</div>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <div class="online-pill reveal" style="animation-delay:.3s"><span class="dot" id="pillDot"></span> <span id="pillText">Memeriksa server…</span></div>
+
+      <h1 class="title reveal" style="animation-delay:.45s">Nyalakan Petualanganmu di<span class="accent">Hu Tao SMP</span></h1>
+      <p class="tagline reveal" style="animation-delay:.6s">Server survival oriental dengan ekonomi hidup, dunia yang terus berkembang, dan komunitas yang selalu ramai. Bangun rumahmu, kumpulkan cuan, dan jadilah legenda di dunia Hu Tao SMP.</p>
+
+      <div class="cta-row reveal" style="animation-delay:.75s">
+        <a href="rank.html" class="cta cta-join">Lihat Daftar Rank →</a>
+        <a href="https://chat.whatsapp.com/JgSKX5OjKLU30SxYpjv9nX?s=cl&p=a&ilr=0&amv=3" target="_blank" rel="noopener" class="cta cta-vote">Gabung via WhatsApp</a>
+      </div>
+
+      <div class="ip-box reveal" style="animation-delay:.9s">
+        <div class="ip-left">
+          <div class="ip-badge badge-java">IP</div>
+          <div>
+            <div class="ip-label">Server IP · Port</div>
+            <div class="ip-addr mono">hu-tao.nexuscloud.id</div>
+            <div class="ip-port">Port: <b>25502</b></div>
+          </div>
+        </div>
+        <button class="copy-btn" data-copy="hu-tao.nexuscloud.id">⧉ Salin</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="ground"></div>
+<div class="dirt-strip"></div>
+
+<div class="feature-section" style="padding-top:44px;">
+  <h2 class="section-label" style="margin-top:0;">Kenapa Main Di Sini</h2>
+  <p class="section-sub">Hu Tao SMP dibangun untuk pemain yang serius survival tapi tetap suka bersosialisasi.</p>
+
+  <div class="feature-grid" style="margin-top:26px;">
+    <div class="feature-card scroll-reveal">
+      <div class="feature-icon fi-gold">🔥</div>
+      <h3>Ekonomi Aktif</h3>
+      <p>Sistem jual-beli, claim lahan, dan mata uang in-game yang terus dipakai tiap hari oleh komunitas.</p>
+    </div>
+    <div class="feature-card scroll-reveal" style="transition-delay:.05s">
+      <div class="feature-icon fi-sky">🏮</div>
+      <h3>Event Rutin</h3>
+      <p>Giveaway rank, build contest, dan mini-event berhadiah point atau skill diadakan berkala.</p>
+    </div>
+    <div class="feature-card scroll-reveal" style="transition-delay:.1s">
+      <div class="feature-icon fi-green">🛡️</div>
+      <h3>Anti Griefing</h3>
+      <p>Sistem claim block dan tim admin aktif menjaga base kamu tetap aman dari pengrusakan.</p>
+    </div>
+  </div>
+
+  <div class="feature-cta scroll-reveal" style="transition-delay:.15s;">
+    <h2>Mau lihat semua fitur server?</h2>
+    <p>Dari proteksi lahan sampai leaderboard mingguan — semuanya ada di halaman Fitur.</p>
+    <div class="cta-row" style="margin-bottom:0;">
+      <a href="fitur.html" class="cta cta-join">Lihat Semua Fitur</a>
+      <a href="wiki.html" class="cta cta-vote">Baca Wiki</a>
+    </div>
+  </div>
+</div>
+
+<div class="chat-section" style="padding-bottom:20px;">
+  <div class="scroll-reveal" id="chatIntro">
+    <div class="eyebrow">🔥 Naik Tingkatan</div>
+    <h2>Rank Favorit Pemain</h2>
+    <p>Tiga rank paling laris minggu ini — cek daftar lengkap dan fasilitasnya di halaman Rank.</p>
+  </div>
+
+  <div class="price-grid scroll-reveal" style="max-width:900px; margin:26px auto 0; transition-delay:.1s;">
+    <div class="price-card">
+      <div class="price-icon fi-gold">🔥</div>
+      <h3>Bennet</h3>
+      <div class="price-tag">Rp30.000 <span>Premium Rank II</span></div>
+      <ul class="price-features">
+        <li>/pv5 · /kit · /enderchest · /fly</li>
+        <li>Claim block 35.000 · Sethome 8</li>
+      </ul>
+      <a href="rank.html" class="buy-btn">Lihat Detail</a>
+    </div>
+    <div class="price-card popular">
+      <div class="price-ribbon">Favorit</div>
+      <div class="price-icon fi-sky">🔥</div>
+      <h3>ZhongLi</h3>
+      <div class="price-tag">Rp100.000 <span>Elite Rank</span></div>
+      <ul class="price-features">
+        <li>/repair all · /pv12 · /timeset</li>
+        <li>Claim block 100.000 · Sethome 15</li>
+      </ul>
+      <a href="rank.html" class="buy-btn">Lihat Detail</a>
+    </div>
+    <div class="price-card">
+      <div class="price-icon fi-soul">🔥</div>
+      <h3>Hu Tao</h3>
+      <div class="price-tag">Rp225.000 <span>Mythic Rank</span></div>
+      <ul class="price-features">
+        <li>/speed · //wand · Boost skill</li>
+        <li>Claim block & sethome unlimited</li>
+      </ul>
+      <a href="rank.html" class="buy-btn">Lihat Detail</a>
+    </div>
+  </div>
+</div>
+
+<div class="chat-section">
+  <div class="scroll-reveal" id="chatIntro2">
+    <div class="eyebrow">☺ In-Game</div>
+    <h2>Live Chat</h2>
+    <p>Obrolan langsung dari dalam server. Login dengan Discord untuk ikut ngobrol.</p>
+  </div>
+
+  <div class="chat-window scroll-reveal" id="chatWindow" style="transition-delay:.15s">
+    <div class="chat-head">💬 Live Chat <span class="chat-mode" id="chatMode">Mode Demo</span><span class="dot"></span></div>
+    <div class="chat-body" id="chatBody">
+      <div class="msg">
+        <div class="avatar"></div>
+        <div class="msg-body">
+          <div class="msg-top"><span class="msg-name">ArdanaZX</span><span class="msg-time">1 jam lalu</span></div>
+          <div class="msg-text">ada yang mau nge-nether bareng?</div>
+        </div>
+      </div>
+      <div class="msg">
+        <div class="avatar"></div>
+        <div class="msg-body">
+          <div class="msg-top"><span class="msg-name">NyxTerra</span><span class="msg-time">1 jam lalu</span></div>
+          <div class="msg-text">gas, aku siapin portalnya</div>
+        </div>
+      </div>
+      <div class="msg">
+        <div class="avatar"></div>
+        <div class="msg-body">
+          <div class="msg-top"><span class="msg-name">KaelWr</span><span class="msg-time">1 jam lalu</span></div>
+          <div class="msg-text">base baru udah kelar, mampir dong</div>
+        </div>
+      </div>
+      <div class="msg">
+        <div class="avatar"></div>
+        <div class="msg-body">
+          <div class="msg-top"><span class="msg-name">Rusdiyoo</span><span class="msg-time">1 jam lalu</span></div>
+          <div class="msg-text">mantap, langsung meluncur</div>
+        </div>
+      </div>
+      <div class="msg">
+        <div class="avatar" style="background:linear-gradient(160deg,#5865F2,#3a44b0); border-color:#3a44b0;"></div>
+        <div class="msg-body">
+          <div class="msg-top"><span class="msg-name">Miyu_Chan</span><span class="msg-tag">DISCORD</span><span class="msg-time">1 jam lalu</span></div>
+          <div class="msg-text">welkam player baru!</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="foot-ip-row">
+    <div class="ip-box" style="margin:0;">
+      <div class="ip-left">
+        <div class="ip-badge badge-java">IP</div>
+        <div><div class="ip-label">Server IP</div><div class="ip-addr mono">hu-tao.nexuscloud.id</div></div>
+      </div>
+      <button class="copy-btn" data-copy="hu-tao.nexuscloud.id">⧉ Salin</button>
+    </div>
+    <div class="ip-box" style="margin:0;">
+      <div class="ip-left">
+        <div class="ip-badge badge-be">#</div>
+        <div><div class="ip-label">Port</div><div class="ip-addr mono">25502</div></div>
+      </div>
+      <button class="copy-btn" data-copy="25502">⧉ Salin</button>
+    </div>
+  </div>
+  <div class="foot-links">
+    <a href="https://chat.whatsapp.com/JgSKX5OjKLU30SxYpjv9nX?s=cl&p=a&ilr=0&amv=3" target="_blank" rel="noopener">WhatsApp</a>
+    <a href="https://discord.gg/TuKNkSFM5" target="_blank" rel="noopener">Discord</a>
+    <a href="https://www.tiktok.com/@hu.tao.smp?_r=1&_t=ZS-98BG7XpfNbj" target="_blank" rel="noopener">TikTok</a>
+  </div>
+  <p>© 2026 Hu Tao SMP. Tidak berafiliasi dengan Mojang / Microsoft.</p>
+</footer>
+
+<script src="assets/site.js"></script>
+<script>
+  // ---------- real server status via public Minecraft status API ----------
+  const SERVER_ADDRESS = 'hu-tao.nexuscloud.id:25502';
+  const STATUS_API = `https://api.mcsrvstat.us/3/${SERVER_ADDRESS}`;
+
+  const els = {
+    players: document.getElementById('statPlayers'),
+    bar: document.getElementById('statBar'),
+    version: document.getElementById('statVersion'),
+    tps: document.getElementById('statTps'),
+    status: document.getElementById('statStatus'),
+    checked: document.getElementById('statChecked'),
+    updated: document.getElementById('statUpdated'),
+    sub: document.getElementById('statSub'),
+    dot: document.getElementById('statDot'),
+    pillDot: document.getElementById('pillDot'),
+    pillText: document.getElementById('pillText'),
+  };
+
+  function tickText(el, newText){
+    el.classList.add('tick');
+    setTimeout(()=>{ el.textContent = newText; el.classList.remove('tick'); }, 220);
+  }
+
+  function timeAgo(unixSeconds){
+    if(!unixSeconds) return 'baru saja';
+    const diff = Math.max(0, Math.round(Date.now()/1000 - unixSeconds));
+    if(diff < 60) return 'baru saja';
+    const m = Math.round(diff/60);
+    return `${m} menit lalu`;
+  }
+
+  function setOnlineUI(isOnline){
+    els.dot.style.background = isOnline ? 'var(--green)' : '#D14444';
+    els.pillDot.style.background = isOnline ? 'var(--green)' : '#D14444';
+    const label = isOnline ? 'Server Online — Bergabunglah Sekarang' : 'Server Sedang Offline';
+    els.sub.innerHTML = `<span class="dot" id="statDot" style="background:${isOnline?'var(--green)':'#D14444'}"></span> ${label}`;
+    els.dot = document.getElementById('statDot');
+    els.pillText.textContent = label;
+    tickText(els.status, isOnline ? 'Online ⚡' : 'Offline');
+  }
+
+  async function fetchServerStatus(){
+    try{
+      const res = await fetch(STATUS_API, { cache: 'no-store' });
+      if(!res.ok) throw new Error('bad response');
+      const data = await res.json();
+
+      setOnlineUI(!!data.online);
+
+      if(data.online && data.players){
+        const online = data.players.online ?? 0;
+        const max = data.players.max ?? 0;
+        tickText(els.players, `${online} / ${max}`);
+        els.bar.style.width = max ? `${Math.min(100,(online/max)*100)}%` : '0%';
+      } else {
+        tickText(els.players, '— / —');
+        els.bar.style.width = '0%';
+      }
+
+      tickText(els.version, data.version || '—');
+      tickText(els.tps, 'Tidak tersedia');
+
+      const cacheTime = data.debug && data.debug.cachetime;
+      tickText(els.checked, timeAgo(cacheTime));
+
+      els.updated.textContent = `Live · data dari ${SERVER_ADDRESS}`;
+    } catch(err){
+      setOnlineUI(false);
+      tickText(els.players, '— / —');
+      tickText(els.version, '—');
+      tickText(els.checked, '—');
+      els.updated.textContent = 'Tidak bisa memuat status server saat ini';
+    }
+  }
+
+  fetchServerStatus();
+  setInterval(fetchServerStatus, 60000);
+
+  // ---------- live chat: real via GitHub-hosted data/chat.json if configured, else demo ----------
+  // Kosongkan ('') untuk tetap pakai simulasi demo, atau isi dengan URL raw
+  // data/chat.json (lewat raw.githubusercontent.com) atau endpoint proxy
+  // discordsrv-chat-proxy/ setelah kamu deploy — lihat folder tsb untuk caranya.
+  const CHAT_API_URL = '';
+
+  const chatBody = document.getElementById('chatBody');
+  const chatPool = [
+    { name:'ArdanaZX', text:'ada yang mau nge-nether bareng?' },
+    { name:'NyxTerra', text:'gas, aku siapin portalnya' },
+    { name:'KaelWr', text:'base baru udah kelar, mampir dong' },
+    { name:'Miyu_Chan', text:'welcome player baru!', tag:'DISCORD' },
+    { name:'Rusdiyoo', text:'siapa yang mau trade emerald?' },
+    { name:'Winata', text:'awas creeper di belakangmu wkwk' },
+    { name:'xiangling_id', text:'event weekend kapan mulai min?' },
+    { name:'zhongli_op', text:'map spawn keren banget sekarang' },
+    { name:'itto_smp', text:'gg semua, seru main bareng' },
+    { name:'noelle_id', text:'ada yang jual netherite ingot?' },
+  ];
+  const MAX_VISIBLE_MSG = 8;
+  const chatModeEl = document.getElementById('chatMode');
+
+  function renderMessage(name, text, isDiscord, time){
+    const el = document.createElement('div');
+    el.className = 'msg msg-in';
+    el.innerHTML = `
+      <div class="avatar" ${isDiscord ? 'style="background:linear-gradient(160deg,#5865F2,#3a44b0); border-color:#3a44b0;"' : ''}></div>
+      <div class="msg-body">
+        <div class="msg-top">
+          <span class="msg-name">${name}</span>
+          ${isDiscord ? '<span class="msg-tag">DISCORD</span>' : ''}
+          <span class="msg-time">${time || 'baru saja'}</span>
+        </div>
+        <div class="msg-text">${text}</div>
+      </div>`;
+    chatBody.appendChild(el);
+    chatBody.scrollTop = chatBody.scrollHeight;
+    while(chatBody.children.length > MAX_VISIBLE_MSG){
+      chatBody.removeChild(chatBody.firstElementChild);
+    }
+  }
+
+  function addDemoMessage(){
+    const pick = chatPool[Math.floor(Math.random()*chatPool.length)];
+    renderMessage(pick.name, pick.text, !!pick.tag, 'baru saja');
+  }
+
+  let lastMessageIds = new Set();
+  async function fetchRealChat(){
+    try{
+      const bustCache = CHAT_API_URL + (CHAT_API_URL.includes('?') ? '&' : '?') + 't=' + Date.now();
+      const res = await fetch(bustCache, { cache: 'no-store' });
+      if(!res.ok) throw new Error('bad response');
+      const messages = await res.json();
+      messages.forEach(m=>{
+        const id = m.id || `${m.name}-${m.content}-${m.time || m.timestamp}`;
+        if(lastMessageIds.has(id)) return;
+        lastMessageIds.add(id);
+        const label = m.time || (m.timestamp ? timeAgo(Math.floor(new Date(m.timestamp).getTime()/1000)) : 'baru saja');
+        renderMessage(m.name, m.content, (m.tag === 'DISCORD'), label);
+      });
+      chatModeEl.textContent = 'Live · DiscordSRV';
+      chatModeEl.classList.add('live');
+    } catch(err){
+      chatModeEl.textContent = 'Gagal terhubung';
+      chatModeEl.classList.remove('live');
+    }
+  }
+
+  if(CHAT_API_URL){
+    chatModeEl.textContent = 'Menghubungkan…';
+    fetchRealChat();
+    setInterval(fetchRealChat, 20000);
+  } else {
+    chatModeEl.textContent = 'Mode Demo';
+    setInterval(addDemoMessage, 5500);
+  }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wiki — Hu Tao SMP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Baloo+2:wght@500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<div id="sparkles"></div>
+
+<nav style="animation: navDrop .6s cubic-bezier(.22,1,.36,1) both;">
+  <div class="brand">
+    <div class="brand-icon-ring">
+      <div class="brand-icon">🏮</div>
+    </div>
+  </div>
+  <div class="navlinks">
+    <a href="index.html">Beranda</a>
+    <a href="fitur.html">Fitur</a>
+    <a href="rank.html">Rank</a>
+    <a href="leaderboard.html">Leaderboard</a>
+    <a href="rules.html">Rules</a>
+    <a href="wiki.html" class="active">Wiki</a>
+  </div>
+  <div class="navright">
+    <a href="https://discord.gg/TuKNkSFM5" target="_blank" rel="noopener" class="btn-pill btn-discord">💬 Discord</a>
+    <a href="https://chat.whatsapp.com/JgSKX5OjKLU30SxYpjv9nX?s=cl&p=a&ilr=0&amv=3" target="_blank" rel="noopener" class="btn-pill btn-whatsapp">🟢 WhatsApp</a>
+    <button class="hamburger" id="hamburger" aria-label="Buka menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">Beranda</a>
+  <a href="fitur.html">Fitur</a>
+  <a href="rank.html">Rank</a>
+  <a href="leaderboard.html">Leaderboard</a>
+  <a href="rules.html">Rules</a>
+  <a href="wiki.html" class="active">Wiki</a>
+</div>
+
+<div class="page-hero">
+  <div class="eyebrow reveal" style="animation-delay:.1s">📖 Panduan</div>
+  <h1 class="reveal" style="animation-delay:.2s">Wiki & Panduan</h1>
+  <p class="reveal" style="animation-delay:.35s">Baru gabung? Baca panduan singkat ini biar langsung nyaman main di Hu Tao SMP.</p>
+</div>
+
+<div class="feature-section">
+
+  <h2 class="section-label" style="margin-top:0;">Mulai dari Sini</h2>
+  <p class="section-sub">4 langkah gampang buat pemain baru.</p>
+  <div class="wiki-steps scroll-reveal" style="margin-top:22px;">
+    <div class="wiki-step">
+      <div class="wiki-step-num">1</div>
+      <p><b>Tambahkan server</b> — buka Minecraft, masuk ke Multiplayer, lalu masukkan alamat <b>hu-tao.nexuscloud.id</b> dengan port <b>25502</b>.</p>
+    </div>
+    <div class="wiki-step">
+      <div class="wiki-step-num">2</div>
+      <p><b>Baca aturan</b> — cek halaman <a href="rules.html">Rules</a> supaya tahu batasan yang berlaku sebelum mulai main.</p>
+    </div>
+    <div class="wiki-step">
+      <div class="wiki-step-num">3</div>
+      <p><b>Gabung Discord</b> — biar bisa ikut event, baca pengumuman, dan chat nyambung ke in-game.</p>
+    </div>
+    <div class="wiki-step">
+      <div class="wiki-step-num">4</div>
+      <p><b>Klaim lahanmu</b> — pakai plugin proteksi lahan sebelum mulai bangun, biar base kamu aman dari grief.</p>
+    </div>
+  </div>
+
+  <h2 class="section-label">Command Penting</h2>
+  <p class="section-sub">Perintah yang paling sering dipakai sehari-hari.</p>
+  <div class="cmd-table scroll-reveal" style="margin-top:22px;">
+    <div class="cmd-row"><div class="cmd-name">/spawn</div><div class="cmd-desc">Kembali ke titik spawn server</div></div>
+    <div class="cmd-row"><div class="cmd-name">/home</div><div class="cmd-desc">Teleport ke rumah/base yang sudah di-set</div></div>
+    <div class="cmd-row"><div class="cmd-name">/sethome</div><div class="cmd-desc">Menyimpan lokasi saat ini sebagai home</div></div>
+    <div class="cmd-row"><div class="cmd-name">/tpa [nama]</div><div class="cmd-desc">Kirim permintaan teleport ke pemain lain</div></div>
+    <div class="cmd-row"><div class="cmd-name">/balance</div><div class="cmd-desc">Cek saldo money kamu saat ini</div></div>
+    <div class="cmd-row"><div class="cmd-name">/pv[jumlah]</div><div class="cmd-desc">Klaim protection value sesuai rank (mis. /pv5)</div></div>
+    <div class="cmd-row"><div class="cmd-name">/kit</div><div class="cmd-desc">Klaim kit sesuai rank kamu</div></div>
+    <div class="cmd-row"><div class="cmd-name">/enderchest</div><div class="cmd-desc">Buka ender chest dari mana saja (rank tertentu)</div></div>
+    <div class="cmd-row"><div class="cmd-name">/fly</div><div class="cmd-desc">Terbang di area yang diizinkan (rank Bennet ke atas)</div></div>
+    <div class="cmd-row"><div class="cmd-name">/rules</div><div class="cmd-desc">Tampilkan ringkasan aturan server</div></div>
+  </div>
+
+  <h2 class="section-label">FAQ</h2>
+  <p class="section-sub">Pertanyaan yang paling sering ditanyakan pemain baru.</p>
+  <div style="margin-top:22px;">
+
+    <div class="faq-item scroll-reveal">
+      <div class="faq-q">Apakah Hu Tao SMP gratis dimainkan? <span class="plus">＋</span></div>
+      <div class="faq-a"><p>Gratis sepenuhnya. Rank dan top up di halaman Rank sifatnya opsional, hanya buat yang mau dapat benefit tambahan atau dukung server.</p></div>
+    </div>
+
+    <div class="faq-item scroll-reveal" style="transition-delay:.05s">
+      <div class="faq-q">Bagaimana cara beli rank atau top up? <span class="plus">＋</span></div>
+      <div class="faq-a"><p>Buka halaman <a href="rank.html">Rank</a>, pilih rank atau jumlah top up yang kamu mau, lalu klik tombol WhatsApp untuk kirim pesanan langsung ke admin.</p></div>
+    </div>
+
+    <div class="faq-item scroll-reveal" style="transition-delay:.1s">
+      <div class="faq-q">Kalau baru pindah server, item lama ikut pindah? <span class="plus">＋</span></div>
+      <div class="faq-a"><p>Tidak — setiap pemain mulai dari nol seperti dunia survival pada umumnya, supaya adil buat semua orang di season yang sama.</p></div>
+    </div>
+
+    <div class="faq-item scroll-reveal" style="transition-delay:.15s">
+      <div class="faq-q">Bagaimana kalau menemukan bug, cheater, atau scammer? <span class="plus">＋</span></div>
+      <div class="faq-a"><p>Laporkan lewat Discord atau WhatsApp resmi, atau hubungi staff langsung yang online. Sertakan bukti (screenshot/video) kalau ada.</p></div>
+    </div>
+
+  </div>
+
+</div>
+
+<footer>
+  <div class="foot-ip-row">
+    <div class="ip-box" style="margin:0;">
+      <div class="ip-left">
+        <div class="ip-badge badge-java">IP</div>
+        <div><div class="ip-label">Server IP</div><div class="ip-addr mono">hu-tao.nexuscloud.id</div></div>
+      </div>
+      <button class="copy-btn" data-copy="hu-tao.nexuscloud.id">⧉ Salin</button>
+    </div>
+    <div class="ip-box" style="margin:0;">
+      <div class="ip-left">
+        <div class="ip-badge badge-be">#</div>
+        <div><div class="ip-label">Port</div><div class="ip-addr mono">25502</div></div>
+      </div>
+      <button class="copy-btn" data-copy="25502">⧉ Salin</button>
+    </div>
+  </div>
+  <div class="foot-links">
+    <a href="https://chat.whatsapp.com/JgSKX5OjKLU30SxYpjv9nX?s=cl&p=a&ilr=0&amv=3" target="_blank" rel="noopener">WhatsApp</a>
+    <a href="https://discord.gg/TuKNkSFM5" target="_blank" rel="noopener">Discord</a>
+    <a href="https://www.tiktok.com/@hu.tao.smp?_r=1&_t=ZS-98BG7XpfNbj" target="_blank" rel="noopener">TikTok</a>
+  </div>
+  <p>© 2026 Hu Tao SMP. Tidak berafiliasi dengan Mojang / Microsoft.</p>
+</footer>
+
+<script src="assets/site.js"></script>
+</body>
+</html>
