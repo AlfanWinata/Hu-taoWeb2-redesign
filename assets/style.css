@@ -614,3 +614,125 @@
     color:var(--green-2); text-decoration:none; font-family:'Baloo 2',sans-serif; font-weight:700; font-size:12px;
   }
   .foot-links a:hover{ color:var(--green-deep); }
+
+
+/* ---------- saran & kritik page ---------- */
+  .fb-category-toggle{
+    display:flex; gap:10px; justify-content:center; margin:24px auto 22px; flex-wrap:wrap;
+  }
+  .fb-cat-btn{
+    font-family:'Baloo 2',sans-serif; font-weight:700; font-size:13px;
+    padding:10px 22px; border-radius:16px; border:2px solid var(--ink);
+    background:var(--card); color:var(--body-text); cursor:pointer;
+    box-shadow: 2px 2px 0 var(--ink);
+    transition: transform .2s cubic-bezier(.22,1,.36,1), background-color .2s ease, color .2s ease;
+  }
+  .fb-cat-btn:hover{ transform:translateY(-2px); }
+  .fb-cat-btn[data-cat="saran"].active{ background:var(--green); color:#fff; border-color:var(--green-deep); }
+  .fb-cat-btn[data-cat="kritik"].active{ background:#E2574C; color:#fff; border-color:#A83A31; }
+
+  .fb-form{
+    max-width:560px; margin:0 auto 34px; background:var(--card); border:3px solid var(--ink);
+    border-radius:16px; padding:20px; box-shadow: var(--shadow-hard);
+  }
+  .fb-form textarea{
+    width:100%; min-height:90px; border:2px solid var(--line); border-radius:12px; padding:12px;
+    font-family:'Space Grotesk',sans-serif; font-size:13.5px; color:var(--ink); resize:vertical;
+    margin-bottom:10px;
+  }
+  .fb-form textarea:focus{ outline:none; border-color:var(--green); }
+  .fb-form-row{ display:flex; gap:10px; flex-wrap:wrap; }
+  .fb-form input[type="text"]{
+    flex:1; min-width:140px; border:2px solid var(--line); border-radius:10px; padding:10px 12px;
+    font-family:'Space Grotesk',sans-serif; font-size:13px; color:var(--ink);
+  }
+  .fb-form input[type="text"]:focus{ outline:none; border-color:var(--green); }
+  .fb-submit{
+    font-family:'Baloo 2',sans-serif; font-weight:700; font-size:13px;
+    padding:10px 20px; border-radius:12px; border:2px solid var(--ink);
+    background:var(--gold); color:#3a2400; cursor:pointer; box-shadow:3px 3px 0 var(--ink);
+    transition: transform .2s cubic-bezier(.22,1,.36,1);
+  }
+  .fb-submit:hover{ transform:translateY(-2px); }
+  .fb-submit:active{ transform:translate(1px,1px); box-shadow:1px 1px 0 var(--ink); }
+  .fb-hint{ font-size:11px; color:var(--body-dim); margin-top:8px; }
+
+  .fb-feed{ max-width:640px; margin:0 auto; display:flex; flex-direction:column; gap:16px; }
+  .fb-item{
+    background:var(--card); border:3px solid var(--ink); border-radius:16px; padding:16px 18px;
+    box-shadow: 3px 3px 0 var(--ink); position:relative;
+  }
+  .fb-item-head{ display:flex; align-items:center; gap:10px; margin-bottom:8px; }
+  .fb-badge{
+    font-family:'Baloo 2',sans-serif; font-weight:700; font-size:10px; padding:3px 10px; border-radius:10px;
+    color:#fff;
+  }
+  .fb-badge.saran{ background:var(--green); }
+  .fb-badge.kritik{ background:#E2574C; }
+  .fb-name{ font-family:'Baloo 2',sans-serif; font-weight:700; font-size:13px; color:var(--ink); }
+  .fb-time{ font-size:10.5px; color:var(--body-dim); margin-left:auto; white-space:nowrap; }
+  .fb-text{ font-size:13.5px; color:var(--body-text); line-height:1.65; margin-bottom:10px; }
+
+  .fb-reactions{ display:flex; align-items:center; gap:6px; flex-wrap:wrap; }
+  .fb-react-chip{
+    display:flex; align-items:center; gap:4px; font-size:12px; background:var(--line);
+    border-radius:12px; padding:3px 9px; cursor:pointer; border:1.5px solid transparent;
+    transition: transform .15s ease, border-color .15s ease;
+  }
+  .fb-react-chip:hover{ transform:translateY(-1px); }
+  .fb-react-chip.mine{ border-color:var(--green); background:rgba(61,174,92,.12); }
+  .fb-react-add{
+    font-size:15px; cursor:pointer; background:none; border:none; padding:3px 6px;
+    border-radius:10px; user-select:none; -webkit-user-select:none;
+  }
+  .fb-react-add:hover{ background:var(--line); }
+
+  .fb-emoji-picker{
+    position:absolute; bottom:100%; margin-bottom:6px; left:16px;
+    background:#fff; border:2px solid var(--ink); border-radius:20px; padding:6px 10px;
+    display:flex; gap:6px; box-shadow: 3px 3px 0 var(--ink);
+    animation: fadeUp .18s ease both; z-index:5;
+  }
+  .fb-emoji-picker button{
+    font-size:20px; background:none; border:none; cursor:pointer; padding:2px 4px;
+    transition: transform .15s ease;
+  }
+  .fb-emoji-picker button:hover{ transform:scale(1.3); }
+
+  .fb-reply{
+    margin-top:12px; margin-left:20px; background:rgba(61,174,92,.08);
+    border:2px solid var(--green); border-radius:14px; padding:12px 14px;
+  }
+  .fb-reply .fb-name{ color:var(--green-2); }
+  .fb-reply .fb-badge{ background:var(--green); }
+
+  .fb-admin-reply-box{ display:flex; gap:8px; margin-top:12px; margin-left:20px; }
+  .fb-admin-reply-box input{
+    flex:1; border:2px solid var(--line); border-radius:10px; padding:8px 12px; font-size:12.5px;
+  }
+  .fb-admin-reply-box button{
+    font-family:'Baloo 2',sans-serif; font-weight:700; font-size:12px; padding:8px 14px;
+    border-radius:10px; border:2px solid var(--ink); background:var(--green); color:#fff; cursor:pointer;
+  }
+
+  .fb-admin-bar{
+    max-width:640px; margin:0 auto 18px; display:flex; justify-content:flex-end;
+  }
+  .fb-admin-toggle{
+    font-family:'Baloo 2',sans-serif; font-weight:700; font-size:11.5px; color:var(--body-dim);
+    background:none; border:1.5px dashed var(--line); border-radius:12px; padding:6px 12px; cursor:pointer;
+  }
+  .fb-admin-toggle.on{ color:var(--green-2); border-color:var(--green); }
+  .fb-admin-gate{
+    max-width:340px; margin:0 auto 22px; background:var(--card); border:2px dashed var(--line);
+    border-radius:14px; padding:16px; text-align:center; display:none;
+  }
+  .fb-admin-gate.show{ display:block; }
+  .fb-admin-gate input{
+    width:100%; border:2px solid var(--line); border-radius:10px; padding:8px 12px; margin:8px 0;
+    text-align:center;
+  }
+
+  .fb-empty{ text-align:center; color:var(--body-dim); font-size:13px; padding:20px; }
+
+
