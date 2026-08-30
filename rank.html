@@ -78,6 +78,76 @@
   .seg-btn:hover{ transform:translateY(-2px); }
   .seg-btn.active{ background:#B15CE0; border-color:#8B3DBF; color:#fff; }
   .cr-note{ font-size:11px; color:var(--body-dim); margin:10px 0 0; text-align:center; }
+
+  /* ---------- Fitur (daftar info, semua otomatis termasuk) ---------- */
+  .feature-toggle-grid{
+    display:grid; grid-template-columns:repeat(auto-fill,minmax(170px,1fr)); gap:8px; margin-top:2px;
+  }
+  .feat-chip{
+    display:flex; align-items:center; gap:6px; font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:12px;
+    padding:9px 10px; border:2px solid #8B3DBF; border-radius:10px; background:#B15CE0; color:#fff;
+    user-select:none;
+  }
+  .feat-chip .chip-check{ font-family:'JetBrains Mono',monospace; font-size:12px; }
+  .feat-chip .chip-label{ flex:1; }
+
+  /* ---------- Range sliders (PV & Money) ---------- */
+  .cr-range-row{ display:flex; align-items:center; gap:12px; }
+  .cr-range-row input[type=range]{ flex:1; accent-color:#B15CE0; }
+  .cr-range-val{
+    font-family:'JetBrains Mono',monospace; font-weight:700; font-size:12px; min-width:96px; text-align:right; color:var(--ink);
+  }
+
+  /* ---------- Live summary ---------- */
+  .cr-summary{
+    margin-top:16px; border:2px dashed #B15CE0; border-radius:12px; padding:12px 14px; background:#FBF3FF;
+  }
+  .cr-summary-row{
+    display:flex; justify-content:space-between; gap:10px; font-size:12.5px;
+    font-family:'Space Grotesk',sans-serif; padding:3px 0; color:var(--ink);
+  }
+  .cr-summary-row.total{ font-weight:800; font-size:15.5px; border-top:2px solid var(--ink); margin-top:6px; padding-top:8px; }
+  .cr-summary-row.hint{ font-size:10.5px; color:var(--body-dim); font-weight:500; }
+  .cr-key-badge{
+    display:inline-flex; align-items:center; gap:5px; background:#FFE9B0; border:2px solid var(--gold-deep);
+    border-radius:20px; padding:4px 12px; font-size:11.5px; font-weight:700; color:#7A4B00; margin-top:8px;
+  }
+  .cr-money-badge{
+    display:inline-flex; align-items:center; gap:5px; background:#D8F5DE; border:2px solid var(--green-2);
+    border-radius:20px; padding:4px 12px; font-size:11.5px; font-weight:700; color:#1D5C34; margin-top:8px; margin-left:8px;
+  }
+
+  /* ---------- Tagline ---------- */
+  .cr-tagline{
+    font-family:'Space Grotesk',sans-serif; font-weight:600; font-size:13px; color:var(--ink);
+    background:#F4E4FF; border:2px dashed #B15CE0; border-radius:10px; padding:8px 12px; margin:10px 0 4px;
+  }
+
+  /* ---------- Warna Rank: Solid / Gradient ---------- */
+  .cr-color-row{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  .cr-color-row input[type=color]{
+    width:44px; height:36px; border:2px solid var(--ink); border-radius:8px; padding:2px; background:#fff; cursor:pointer;
+  }
+  .cr-color-hex{ font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--body-dim); }
+  .cr-color-arrow{ font-weight:800; color:var(--body-dim); }
+
+  /* ---------- Preview rank ---------- */
+  .cr-preview-box{
+    background:#141414; border:2px solid var(--ink); border-radius:12px; padding:18px 20px;
+    display:flex; align-items:center; gap:10px; flex-wrap:wrap;
+  }
+  .cr-preview-tag{
+    font-weight:800; font-size:21px; display:inline-block; background-size:200% 100%;
+    background-repeat:repeat; -webkit-background-clip:text; background-clip:text;
+    -webkit-text-fill-color:transparent; color:transparent;
+  }
+  .cr-preview-tag.cr-anim{ animation:crShimmer 2.2s linear infinite; }
+  @keyframes crShimmer{
+    0%{ background-position:0% 50%; }
+    100%{ background-position:200% 50%; }
+  }
+  .cr-preview-ign{ font-family:'JetBrains Mono',monospace; font-size:15px; font-weight:600; color:#E8E8E8; }
+  .cr-preview-note{ font-size:10.5px; color:var(--body-dim); margin-top:6px; text-align:center; }
 </style>
 </head>
 <body>
@@ -216,17 +286,20 @@
       <a href="javascript:void(0)" class="buy-btn wa-trigger" data-wa-text="Halo%20Admin%2C%20saya%20mau%20beli%20rank%20Hu%20Tao%20(Rp300.000)%20IGN%3A%20">Beli via WhatsApp</a>
     </div>
 
-    <!-- Rank Custom -->
+    <!-- Rank Custom (paket lengkap, harga fixed) -->
     <div class="price-card scroll-reveal custom-rank-card" style="transition-delay:.3s; border-color:#B15CE0; grid-column: 1 / -1;">
       <div class="price-ribbon" style="background:#B15CE0;">Custom</div>
       <div class="price-icon" style="background:linear-gradient(160deg,#E3B8FF,#B15CE0);">🎨</div>
       <h3>Rank Custom</h3>
-      <div class="price-tag"><span>Di atas Hu Tao · Semua fasilitas Hu Tao + tampilan rank sesuai request</span></div>
+      <div class="price-tag">Rp529.999 – Rp549.999 <span>Paket lengkap, semua fitur otomatis termasuk</span></div>
       <ul class="price-features">
-        <li>+ Semua fasilitas Hu Tao</li>
-        <li>Nama rank & warna bebas sesuai request</li>
+        <li>Semua fitur premium didapat otomatis: fly, enderchest, PV, dan semua fitur lain di bawah</li>
+        <li>Warna rank solid/gradient & font bebas, lihat preview langsung</li>
+        <li>Reward otomatis: 10x Spawner Key, 7x Mythic Key, 3x Legendary Key & Rp2.000.000 Money in-game</li>
         <li>Hanya diproses oleh admin <b>Winata</b></li>
       </ul>
+
+      <p class="cr-tagline">🎨 Design Rank kamu sesuai dengan selera kamu — atur warna, font, dan animasinya sendiri, terus lihat preview-nya langsung di bawah.</p>
 
       <div class="custom-rank-form">
         <div class="form-row">
@@ -248,16 +321,80 @@
         </div>
 
         <div class="form-row">
-          <label>Tipe Rank</label>
-          <div class="segmented" id="crAnimasi">
-            <button type="button" class="seg-btn active" data-value="Animasi" data-price="549999">Animasi — Rp549.999</button>
-            <button type="button" class="seg-btn" data-value="Tanpa Animasi" data-price="524999">Tanpa Animasi — Rp524.999</button>
+          <label>Warna Rank</label>
+          <div class="segmented" id="crColorMode">
+            <button type="button" class="seg-btn active" data-value="Solid">Solid</button>
+            <button type="button" class="seg-btn" data-value="Gradient">Gradient</button>
+            <button type="button" class="seg-btn" data-value="RGB">RGB (Rainbow)</button>
           </div>
         </div>
 
-        <div class="offer-total" style="margin-top:14px;">Total: <span id="crTotal">Rp549.999</span></div>
-        <a href="javascript:void(0)" id="crBuyBtn" class="buy-btn" style="background:#B15CE0; border-color:#8B3DBF;">Pesan Rank Custom ke Winata</a>
-        <p class="cr-note">Isi IGN & nama rank dulu sebelum memesan. Pesanan otomatis dikirim ke admin Winata via WhatsApp.</p>
+        <div class="form-row" id="crSolidRow">
+          <label for="crColorSolid">Pilih Warna</label>
+          <div class="cr-color-row">
+            <input type="color" id="crColorSolid" value="#B15CE0">
+            <span class="cr-color-hex" id="crColorSolidHex">#B15CE0</span>
+          </div>
+        </div>
+
+        <div class="form-row" id="crGradientRow" style="display:none;">
+          <label>Pilih Gradasi Warna (3 warna)</label>
+          <div class="cr-color-row">
+            <input type="color" id="crColorFrom" value="#B15CE0">
+            <span class="cr-color-arrow">→</span>
+            <input type="color" id="crColorMid" value="#FF6FB5">
+            <span class="cr-color-arrow">→</span>
+            <input type="color" id="crColorTo" value="#FFB020">
+          </div>
+        </div>
+
+        <div class="form-row" id="crRgbRow" style="display:none;">
+          <p class="cr-preview-note" style="margin:0; text-align:left;">🌈 Warna rainbow otomatis, tidak perlu pilih warna manual. Gerak animasinya tetap ikut pilihan "Tipe Rank" di bawah.</p>
+        </div>
+
+        <div class="form-row">
+          <label for="crFontSelect">Font Tampilan Rank</label>
+          <select id="crFontSelect" class="cr-input">
+            <option value="'Baloo 2', sans-serif">Baloo 2 — Bulat & Playful</option>
+            <option value="'Press Start 2P', monospace">Press Start 2P — Pixel Retro</option>
+            <option value="'Space Grotesk', sans-serif">Space Grotesk — Modern</option>
+            <option value="'JetBrains Mono', monospace">JetBrains Mono — Command Style</option>
+          </select>
+        </div>
+
+        <div class="form-row">
+          <label>Tipe Rank</label>
+          <div class="segmented" id="crAnimasi">
+            <button type="button" class="seg-btn active" data-value="Animasi">Animasi (Rp549.999)</button>
+            <button type="button" class="seg-btn" data-value="Tanpa Animasi">Tanpa Animasi (Rp529.999)</button>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <label>Preview Rank</label>
+          <div class="cr-preview-box">
+            <span class="cr-preview-tag" id="crPreviewTag">[RankName]</span>
+            <span class="cr-preview-ign" id="crPreviewIgn">PlayerIGN</span>
+          </div>
+          <p class="cr-preview-note">Preview kasar tampilan nama rank kamu di chat/tab — warna, font & animasi mengikuti pilihan di atas.</p>
+        </div>
+
+        <div class="form-row">
+          <label>Fitur yang Kamu Dapat (semua otomatis termasuk)</label>
+          <div class="feature-toggle-grid" id="crFeatureGrid"><!-- diisi otomatis lewat JS dari CR_CONFIG.features, tampil sebagai info saja --></div>
+        </div>
+
+        <div class="cr-summary">
+          <div class="cr-summary-row total"><span>Total</span><span id="crTotal">Rp549.999</span></div>
+          <div class="cr-summary-row hint">Harga paket sudah termasuk semua fitur di atas. Key & Money adalah bonus otomatis, bukan dibeli terpisah.</div>
+          <div id="crBonusBox">
+            <span class="cr-key-badge">🔑 Bonus: <span id="crKeyText">10x Spawner Key + 7x Mythic Key + 3x Legendary Key</span></span>
+            <span class="cr-money-badge">💰 Bonus Money: <span id="crMoneyRewardText">Rp2.000.000</span></span>
+          </div>
+        </div>
+
+        <a href="javascript:void(0)" id="crBuyBtn" class="buy-btn" style="background:#B15CE0; border-color:#8B3DBF; margin-top:14px;">Pesan Rank Custom ke Winata</a>
+        <p class="cr-note">Isi IGN & nama rank dulu sebelum memesan. Pesanan (lengkap dengan fitur, PV, warna/font, dan bonus reward) otomatis dikirim ke admin Winata via WhatsApp.</p>
       </div>
     </div>
 
@@ -453,22 +590,71 @@
     if(e.key === 'Escape') closeAdminModal();
   });
 
-  // ---------- Rank Custom: platform, tipe animasi, total harga, & kirim ke Winata ----------
-  const WINATA_NUMBER = '6285766564830';
-  let crPlatformValue = 'Java';
-  let crAnimasiValue = 'Animasi';
-  let crAnimasiPrice = 549999;
-
-  const crPlatformBtns = document.querySelectorAll('#crPlatform .seg-btn');
-  const crAnimasiBtns = document.querySelectorAll('#crAnimasi .seg-btn');
-  const crTotalEl = document.getElementById('crTotal');
-  const crIgnEl = document.getElementById('crIgn');
-  const crRankNameEl = document.getElementById('crRankName');
-  const crBuyBtn = document.getElementById('crBuyBtn');
-
   function formatRupiahCR(n){
     return 'Rp' + n.toLocaleString('id-ID');
   }
+
+  // ================= Rank Custom — paket lengkap harga fixed =================
+  // Semua fitur otomatis termasuk. Angka di bawah gampang diubah kalau mau disesuaikan lagi.
+  const CR_CONFIG = {
+    priceAnimasi: 549999,     // harga paket dengan Animasi
+    priceNoAnimasi: 529999,   // harga paket Tanpa Animasi
+    spawnerKey: 10,         // bonus Spawner Key
+    mythicKey: 7,           // bonus Mythic Key
+    legendaryKey: 3,        // bonus Legendary Key
+    moneyReward: 2000000,   // bonus Money in-game
+    pvLevel: 100,           // Level PV otomatis, sudah termasuk dalam paket
+    features: [
+      { id: 'pv',          label: 'PV 100' },
+      { id: 'fly',         label: 'Fly' },
+      { id: 'enderchest',  label: 'Enderchest' },
+      { id: 'utility',     label: 'Workbench/Anvil/Repair/Feed' },
+      { id: 'kit',         label: 'Kit' },
+      { id: 'speed',       label: 'Speed' },
+      { id: 'wand',        label: 'WorldEdit Wand (//wand)' },
+      { id: 'invsee',      label: 'Invsee' },
+      { id: 'endersee',    label: 'Endersee' },
+      { id: 'timeweather', label: 'Timeset & Weather' },
+      { id: 'tp',          label: 'TP' },
+      { id: 'claim',       label: 'Claim Block Unlimited' },
+      { id: 'sethome',     label: 'Sethome Unlimited' },
+    ],
+  };
+
+  const WINATA_NUMBER = '6285766564830';
+  let crPlatformValue = 'Java';
+  let crAnimasiValue = 'Animasi';
+
+  const crPlatformBtns = document.querySelectorAll('#crPlatform .seg-btn');
+  const crAnimasiBtns = document.querySelectorAll('#crAnimasi .seg-btn');
+  const crIgnEl = document.getElementById('crIgn');
+  const crRankNameEl = document.getElementById('crRankName');
+  const crFeatureGrid = document.getElementById('crFeatureGrid');
+  const crBuyBtn = document.getElementById('crBuyBtn');
+
+  // Warna rank: solid / gradient / rgb
+  let crColorMode = 'Solid';
+  const crColorModeBtns = document.querySelectorAll('#crColorMode .seg-btn');
+  const crSolidRow = document.getElementById('crSolidRow');
+  const crGradientRow = document.getElementById('crGradientRow');
+  const crRgbRow = document.getElementById('crRgbRow');
+  const crColorSolid = document.getElementById('crColorSolid');
+  const crColorSolidHex = document.getElementById('crColorSolidHex');
+  const crColorFrom = document.getElementById('crColorFrom');
+  const crColorMid = document.getElementById('crColorMid');
+  const crColorTo = document.getElementById('crColorTo');
+  const crFontSelect = document.getElementById('crFontSelect');
+  const crPreviewTag = document.getElementById('crPreviewTag');
+  const crPreviewIgn = document.getElementById('crPreviewIgn');
+  const CR_RGB_GRADIENT = 'linear-gradient(90deg, #ff003c, #ff8a00, #ffee00, #4dff00, #00fff2, #0066ff, #b300ff, #ff003c)';
+
+  // Bangun daftar fitur secara otomatis dari CR_CONFIG.features (tampilan info, semua sudah termasuk)
+  CR_CONFIG.features.forEach(f => {
+    const chip = document.createElement('div');
+    chip.className = 'feat-chip';
+    chip.innerHTML = `<span class="chip-check">✓</span><span class="chip-label">${f.label}</span>`;
+    crFeatureGrid.appendChild(chip);
+  });
 
   crPlatformBtns.forEach(btn => {
     btn.addEventListener('click', () => {
@@ -483,25 +669,110 @@
       crAnimasiBtns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       crAnimasiValue = btn.getAttribute('data-value');
-      crAnimasiPrice = parseInt(btn.getAttribute('data-price'), 10);
-      crTotalEl.textContent = formatRupiahCR(crAnimasiPrice);
+      crUpdateUI();
+      crUpdatePreview();
     });
   });
+
+  // Warna rank: toggle Solid / Gradient / RGB
+  crColorModeBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      crColorModeBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      crColorMode = btn.getAttribute('data-value');
+      crSolidRow.style.display = crColorMode === 'Solid' ? 'block' : 'none';
+      crGradientRow.style.display = crColorMode === 'Gradient' ? 'block' : 'none';
+      crRgbRow.style.display = crColorMode === 'RGB' ? 'block' : 'none';
+      crUpdatePreview();
+    });
+  });
+  crColorSolid.addEventListener('input', () => {
+    crColorSolidHex.textContent = crColorSolid.value.toUpperCase();
+    crUpdatePreview();
+  });
+  crColorFrom.addEventListener('input', crUpdatePreview);
+  crColorMid.addEventListener('input', crUpdatePreview);
+  crColorTo.addEventListener('input', crUpdatePreview);
+  crFontSelect.addEventListener('change', crUpdatePreview);
+  crRankNameEl.addEventListener('input', crUpdatePreview);
+  crIgnEl.addEventListener('input', crUpdatePreview);
+
+  function crUpdatePreview(){
+    const name = crRankNameEl.value.trim() || 'RankName';
+    const ign = crIgnEl.value.trim() || 'PlayerIGN';
+    crPreviewTag.textContent = `[${name}]`;
+    crPreviewIgn.textContent = ign;
+    crPreviewTag.style.fontFamily = crFontSelect.value;
+
+    let bgImage;
+    if (crColorMode === 'Solid') {
+      bgImage = `linear-gradient(90deg, ${crColorSolid.value}, ${crColorSolid.value})`;
+    } else if (crColorMode === 'Gradient') {
+      // warna pertama diulang di ujung akhir supaya loop-nya nyambung mulus, sama seperti trik RGB
+      bgImage = `linear-gradient(90deg, ${crColorFrom.value}, ${crColorMid.value}, ${crColorTo.value}, ${crColorFrom.value})`;
+    } else {
+      bgImage = CR_RGB_GRADIENT;
+    }
+    crPreviewTag.style.backgroundImage = bgImage;
+    crPreviewTag.classList.toggle('cr-anim', crAnimasiValue === 'Animasi');
+  }
+
+  function crCalc(){
+    return {
+      pvLevel: CR_CONFIG.pvLevel,
+      finalTotal: crAnimasiValue === 'Animasi' ? CR_CONFIG.priceAnimasi : CR_CONFIG.priceNoAnimasi,
+      spawnerKey: CR_CONFIG.spawnerKey,
+      mythicKey: CR_CONFIG.mythicKey,
+      legendaryKey: CR_CONFIG.legendaryKey,
+      moneyReward: CR_CONFIG.moneyReward,
+    };
+  }
+
+  function crUpdateUI(){
+    const r = crCalc();
+    document.getElementById('crTotal').textContent = formatRupiahCR(r.finalTotal);
+    document.getElementById('crKeyText').textContent = `${r.spawnerKey}x Spawner Key + ${r.mythicKey}x Mythic Key + ${r.legendaryKey}x Legendary Key`;
+    document.getElementById('crMoneyRewardText').textContent = formatRupiahCR(r.moneyReward);
+  }
 
   crBuyBtn.addEventListener('click', () => {
     const ign = crIgnEl.value.trim();
     const rankName = crRankNameEl.value.trim();
 
-    if(!ign || !rankName){
+    if (!ign || !rankName) {
       alert('Mohon isi IGN dan Nama Rank yang diinginkan terlebih dahulu.');
-      if(!ign) crIgnEl.focus(); else crRankNameEl.focus();
+      if (!ign) crIgnEl.focus(); else crRankNameEl.focus();
       return;
     }
 
-    const message = `Halo Admin Winata, saya mau pesan Rank Custom.\nPlatform: ${crPlatformValue}\nIGN: ${ign}\nNama Rank: ${rankName}\nTipe: ${crAnimasiValue} (${formatRupiahCR(crAnimasiPrice)})`;
+    const r = crCalc();
+    const featLine = CR_CONFIG.features.map(f => f.label).join(', ');
+    const warnaLine = crColorMode === 'Solid'
+      ? `Solid (${crColorSolid.value.toUpperCase()})`
+      : crColorMode === 'Gradient'
+        ? `Gradient (${crColorFrom.value.toUpperCase()} → ${crColorMid.value.toUpperCase()} → ${crColorTo.value.toUpperCase()})`
+        : 'RGB (Rainbow otomatis)';
+    const fontLine = crFontSelect.options[crFontSelect.selectedIndex].text;
+    const rewardLine = `${r.spawnerKey}x Spawner Key + ${r.mythicKey}x Mythic Key + ${r.legendaryKey}x Legendary Key + ${formatRupiahCR(r.moneyReward)} Money`;
+
+    const message = `Halo Admin Winata, saya mau pesan Rank Custom.
+Platform: ${crPlatformValue}
+IGN: ${ign}
+Nama Rank: ${rankName}
+Warna Rank: ${warnaLine}
+Font: ${fontLine}
+Tipe: ${crAnimasiValue}
+Fitur Termasuk: ${featLine}
+Level PV: ${r.pvLevel}
+Bonus Reward: ${rewardLine}
+Total: ${formatRupiahCR(r.finalTotal)}`;
+
     const encodedMessage = encodeURIComponent(message);
     window.open(`https://wa.me/${WINATA_NUMBER}?text=${encodedMessage}`, '_blank', 'noopener');
   });
+
+  crUpdateUI();
+  crUpdatePreview();
 </script>
 </body>
 </html>
