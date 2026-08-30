@@ -8,18 +8,35 @@
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Baloo+2:wght@500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/style.css">
 <style>
-  /* ---------- Admin picker (custom addition) ---------- */
-  .admin-picker{ max-width:760px; margin:22px auto 0; }
-  .admin-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(200px,1fr)); gap:14px; margin-top:16px; }
+  /* ---------- Admin modal (opens on "Beli via WhatsApp" click) ---------- */
+  .admin-modal-overlay{
+    position:fixed; inset:0; background:rgba(20,30,25,.55); backdrop-filter:blur(2px);
+    display:flex; align-items:center; justify-content:center; padding:20px;
+    z-index:999; opacity:0; pointer-events:none; transition:opacity .2s ease;
+  }
+  .admin-modal-overlay.open{ opacity:1; pointer-events:auto; }
+  .admin-modal{
+    background:var(--card); border:3px solid var(--ink); border-radius:18px;
+    box-shadow:5px 5px 0 var(--ink); padding:22px; max-width:420px; width:100%;
+    transform:translateY(10px); transition:transform .2s cubic-bezier(.22,1,.36,1);
+  }
+  .admin-modal-overlay.open .admin-modal{ transform:translateY(0); }
+  .admin-modal-head{ display:flex; align-items:center; justify-content:space-between; margin-bottom:4px; }
+  .admin-modal-head h3{ font-family:'Baloo 2',sans-serif; font-weight:800; font-size:19px; color:var(--ink); margin:0; }
+  .admin-modal-close{
+    background:none; border:2px solid var(--ink); border-radius:8px; width:28px; height:28px;
+    font-size:16px; line-height:1; cursor:pointer; color:var(--ink);
+  }
+  .admin-modal-sub{ font-size:12.5px; color:var(--body-dim); margin:2px 0 16px; }
+  .admin-modal-list{ display:flex; flex-direction:column; gap:10px; }
   .admin-card{
-    display:flex; align-items:center; gap:12px; text-align:left;
+    display:flex; align-items:center; gap:12px; text-align:left; width:100%;
     background:var(--card); border:3px solid var(--ink); border-radius:14px;
     padding:14px 16px; cursor:pointer; box-shadow:3px 3px 0 var(--ink);
     font-family:'Space Grotesk',sans-serif;
     transition: transform .2s cubic-bezier(.22,1,.36,1), box-shadow .2s ease, border-color .2s ease;
   }
-  .admin-card:hover{ transform:translateY(-3px); }
-  .admin-card.active{ border-color:var(--green-2); box-shadow:3px 3px 0 var(--green-2); background:rgba(61,174,92,.06); }
+  .admin-card:hover{ transform:translateY(-3px); border-color:var(--green-2); box-shadow:3px 3px 0 var(--green-2); }
   .admin-avatar{
     width:42px; height:42px; border-radius:12px; border:2px solid var(--ink); flex-shrink:0;
     background:linear-gradient(160deg,#8FE0A6,#3DAE5C); display:flex; align-items:center; justify-content:center; font-size:19px;
@@ -37,7 +54,6 @@
   .status-away{ color:#0a7ea6; }
   .status-offline .status-dot{ background:#B9C4C0; box-shadow:0 0 0 2px rgba(185,196,192,.3); }
   .status-offline{ color:var(--body-dim); }
-  .admin-picker-note{ font-size:11.5px; color:var(--body-dim); text-align:center; margin-top:12px; }
 </style>
 </head>
 <body>
@@ -86,45 +102,8 @@
 
 <div class="feature-section">
 
-  <!-- ===== ADMIN PICKER ===== -->
-  <h2 class="section-label" style="margin-top:0;">Pilih Admin</h2>
-  <p class="section-sub">Semua tombol "Beli via WhatsApp" di bawah akan mengarah ke admin yang kamu pilih di sini.</p>
-
-  <div class="admin-picker">
-    <div class="admin-grid">
-      <button type="button" class="admin-card" data-admin-number="6285766564830" data-admin-name="Winata">
-        <div class="admin-avatar">👤</div>
-        <div class="admin-info">
-          <div class="admin-name">Winata</div>
-          <div class="admin-number">0857-6656-4830</div>
-          <div class="admin-status status-online"><span class="status-dot"></span> Tersedia</div>
-        </div>
-      </button>
-
-      <button type="button" class="admin-card active" data-admin-number="6285761779383" data-admin-name="Clay">
-        <div class="admin-avatar">👤</div>
-        <div class="admin-info">
-          <div class="admin-name">Clay</div>
-          <div class="admin-number">0857-6177-9383</div>
-          <div class="admin-status status-online"><span class="status-dot"></span> Tersedia</div>
-        </div>
-      </button>
-
-      <button type="button" class="admin-card" data-admin-number="6289531905129" data-admin-name="Pedal">
-        <div class="admin-avatar">👤</div>
-        <div class="admin-info">
-          <div class="admin-name">Pedal</div>
-          <div class="admin-number">0895-3190-5129</div>
-          <div class="admin-status status-online"><span class="status-dot"></span> Tersedia</div>
-        </div>
-      </button>
-    </div>
-    <div class="admin-picker-note">Admin dipilih: <strong id="selectedAdminLabel">Clay</strong></div>
-  </div>
-  <!-- ===== END ADMIN PICKER ===== -->
-
-  <h2 class="section-label">Enam Tingkatan</h2>
-  <p class="section-sub">Makin tinggi rank, makin lengkap fasilitas yang kamu dapat di dunia Hu Tao SMP.</p>
+  <h2 class="section-label" style="margin-top:0;">Enam Tingkatan</h2>
+  <p class="section-sub">Makin tinggi rank, makin lengkap fasilitas yang kamu dapat di dunia Hu Tao SMP. Klik "Beli via WhatsApp" untuk memilih admin tujuan.</p>
 
   <div class="rules-callout" style="margin-top:22px; margin-bottom:0;">
     <p>⚠️ <strong>Perhatian:</strong> Setiap pergantian season, rank akan turun 1 tier (contoh: Bennet → Yelan). <strong>Khusus rank Hu Tao</strong> mendapat proteksi 1 season, jadi baru turun tier setiap 2 season sekali.</p>
@@ -142,7 +121,7 @@
         <li>/pv3 · /kit · /enderchest</li>
         <li>Claim block 15.000 · Sethome 5</li>
       </ul>
-      <a href="#" target="_blank" rel="noopener" class="buy-btn wa-dynamic-link" data-wa-text="Halo%20Admin%2C%20saya%20mau%20beli%20rank%20Yelan%20(Rp15.000)%20IGN%3A%20">Beli via WhatsApp</a>
+      <a href="javascript:void(0)" class="buy-btn wa-trigger" data-wa-text="Halo%20Admin%2C%20saya%20mau%20beli%20rank%20Yelan%20(Rp15.000)%20IGN%3A%20">Beli via WhatsApp</a>
     </div>
 
     <!-- Bennet -->
@@ -156,7 +135,7 @@
         <li>/pv5 · /kit · /enderchest · /fly</li>
         <li>Claim block 35.000 · Sethome 8</li>
       </ul>
-      <a href="#" target="_blank" rel="noopener" class="buy-btn wa-dynamic-link" data-wa-text="Halo%20Admin%2C%20saya%20mau%20beli%20rank%20Bennet%20(Rp35.000)%20IGN%3A%20">Beli via WhatsApp</a>
+      <a href="javascript:void(0)" class="buy-btn wa-trigger" data-wa-text="Halo%20Admin%2C%20saya%20mau%20beli%20rank%20Bennet%20(Rp35.000)%20IGN%3A%20">Beli via WhatsApp</a>
     </div>
 
     <!-- XingQiu -->
@@ -169,7 +148,7 @@
         <li>/pv8 · /invsee</li>
         <li>Claim block 70.000 · Sethome 12</li>
       </ul>
-      <a href="#" target="_blank" rel="noopener" class="buy-btn wa-dynamic-link" data-wa-text="Halo%20Admin%2C%20saya%20mau%20beli%20rank%20XingQiu%20(Rp65.000)%20IGN%3A%20">Beli via WhatsApp</a>
+      <a href="javascript:void(0)" class="buy-btn wa-trigger" data-wa-text="Halo%20Admin%2C%20saya%20mau%20beli%20rank%20XingQiu%20(Rp65.000)%20IGN%3A%20">Beli via WhatsApp</a>
     </div>
 
     <!-- ZhongLi -->
@@ -183,7 +162,7 @@
         <li>/timeset · /weather · /endersee</li>
         <li>Claim block 100.000 · Sethome 15</li>
       </ul>
-      <a href="#" target="_blank" rel="noopener" class="buy-btn wa-dynamic-link" data-wa-text="Halo%20Admin%2C%20saya%20mau%20beli%20rank%20ZhongLi%20(Rp120.000)%20IGN%3A%20">Beli via WhatsApp</a>
+      <a href="javascript:void(0)" class="buy-btn wa-trigger" data-wa-text="Halo%20Admin%2C%20saya%20mau%20beli%20rank%20ZhongLi%20(Rp120.000)%20IGN%3A%20">Beli via WhatsApp</a>
     </div>
 
     <!-- XiangLing -->
@@ -196,7 +175,7 @@
         <li>/pv16 · /tp</li>
         <li>Claim block 150.000 · Sethome 20</li>
       </ul>
-      <a href="#" target="_blank" rel="noopener" class="buy-btn wa-dynamic-link" data-wa-text="Halo%20Admin%2C%20saya%20mau%20beli%20rank%20XiangLing%20(Rp150.000)%20IGN%3A%20">Beli via WhatsApp</a>
+      <a href="javascript:void(0)" class="buy-btn wa-trigger" data-wa-text="Halo%20Admin%2C%20saya%20mau%20beli%20rank%20XiangLing%20(Rp150.000)%20IGN%3A%20">Beli via WhatsApp</a>
     </div>
 
     <!-- Hu Tao -->
@@ -210,13 +189,13 @@
         <li>/speed · //wand · Boost skill</li>
         <li>Claim block & sethome unlimited</li>
       </ul>
-      <a href="#" target="_blank" rel="noopener" class="buy-btn wa-dynamic-link" data-wa-text="Halo%20Admin%2C%20saya%20mau%20beli%20rank%20Hu%20Tao%20(Rp300.000)%20IGN%3A%20">Beli via WhatsApp</a>
+      <a href="javascript:void(0)" class="buy-btn wa-trigger" data-wa-text="Halo%20Admin%2C%20saya%20mau%20beli%20rank%20Hu%20Tao%20(Rp300.000)%20IGN%3A%20">Beli via WhatsApp</a>
     </div>
 
   </div>
 
   <h2 class="section-label">Isi Ulang Saldo</h2>
-  <p class="section-sub">Atur jumlah yang kamu mau, total harga terhitung otomatis, lalu kirim pesanan langsung ke admin via WhatsApp.</p>
+  <p class="section-sub">Atur jumlah yang kamu mau, total harga terhitung otomatis, lalu klik "Pesan via WhatsApp" untuk memilih admin tujuan.</p>
 
   <div class="price-grid" style="margin-top:26px;">
 
@@ -230,7 +209,7 @@
         <button type="button" onclick="stepQty('money', 1)">+</button>
       </div>
       <div class="offer-total">Total: <span id="money-total">Rp5.000</span></div>
-      <a id="money-link" href="#" target="_blank" rel="noopener" class="buy-btn">Pesan via WhatsApp</a>
+      <a id="money-link" href="javascript:void(0)" class="buy-btn wa-trigger">Pesan via WhatsApp</a>
     </div>
 
     <div class="price-card scroll-reveal" style="transition-delay:.05s">
@@ -243,7 +222,7 @@
         <button type="button" onclick="stepQty('point', 1)">+</button>
       </div>
       <div class="offer-total">Total: <span id="point-total">Rp1.000</span></div>
-      <a id="point-link" href="#" target="_blank" rel="noopener" class="buy-btn">Pesan via WhatsApp</a>
+      <a id="point-link" href="javascript:void(0)" class="buy-btn wa-trigger">Pesan via WhatsApp</a>
     </div>
 
     <div class="price-card scroll-reveal" style="transition-delay:.1s">
@@ -256,7 +235,7 @@
         <button type="button" onclick="stepQty('skill', 1)">+</button>
       </div>
       <div class="offer-total">Total: <span id="skill-total">Rp7.000</span></div>
-      <a id="skill-link" href="#" target="_blank" rel="noopener" class="buy-btn">Pesan via WhatsApp</a>
+      <a id="skill-link" href="javascript:void(0)" class="buy-btn wa-trigger">Pesan via WhatsApp</a>
     </div>
 
   </div>
@@ -266,6 +245,46 @@
   </div>
 
 </div>
+
+<!-- ===== ADMIN PICKER MODAL (muncul saat klik tombol beli) ===== -->
+<div class="admin-modal-overlay" id="adminModalOverlay">
+  <div class="admin-modal">
+    <div class="admin-modal-head">
+      <h3>Pilih Admin</h3>
+      <button type="button" class="admin-modal-close" id="adminModalClose" aria-label="Tutup">✕</button>
+    </div>
+    <p class="admin-modal-sub">Pesananmu akan dikirim ke admin yang kamu pilih di bawah ini.</p>
+    <div class="admin-modal-list">
+      <button type="button" class="admin-card" data-admin-number="6285766564830">
+        <div class="admin-avatar">👤</div>
+        <div class="admin-info">
+          <div class="admin-name">Winata</div>
+          <div class="admin-number">0857-6656-4830</div>
+          <div class="admin-status status-online"><span class="status-dot"></span> Tersedia</div>
+        </div>
+      </button>
+
+      <button type="button" class="admin-card" data-admin-number="6285761779383">
+        <div class="admin-avatar">👤</div>
+        <div class="admin-info">
+          <div class="admin-name">Clay</div>
+          <div class="admin-number">0857-6177-9383</div>
+          <div class="admin-status status-online"><span class="status-dot"></span> Tersedia</div>
+        </div>
+      </button>
+
+      <button type="button" class="admin-card" data-admin-number="6289531905129">
+        <div class="admin-avatar">👤</div>
+        <div class="admin-info">
+          <div class="admin-name">Pedal</div>
+          <div class="admin-number">0895-3190-5129</div>
+          <div class="admin-status status-online"><span class="status-dot"></span> Tersedia</div>
+        </div>
+      </button>
+    </div>
+  </div>
+</div>
+<!-- ===== END ADMIN PICKER MODAL ===== -->
 
 <footer>
   <div class="foot-ip-row">
@@ -294,49 +313,7 @@
 
 <script src="assets/site.js"></script>
 <script>
-  // ---------- pemilihan admin WhatsApp ----------
-  let selectedAdminNumber = '6285761779383'; // default: Clay
-  let selectedAdminName = 'Clay';
-
-  const adminCards = document.querySelectorAll('.admin-card');
-  const selectedAdminLabel = document.getElementById('selectedAdminLabel');
-
-  function updateWaLinks(){
-    document.querySelectorAll('.wa-dynamic-link').forEach(a => {
-      const text = a.getAttribute('data-wa-text');
-      a.href = `https://wa.me/${selectedAdminNumber}?text=${text}`;
-    });
-  }
-
-  adminCards.forEach(card => {
-    card.addEventListener('click', () => {
-      adminCards.forEach(c => c.classList.remove('active'));
-      card.classList.add('active');
-      selectedAdminNumber = card.getAttribute('data-admin-number');
-      selectedAdminName = card.getAttribute('data-admin-name');
-      selectedAdminLabel.textContent = selectedAdminName;
-      updateWaLinks();
-      localStorage.setItem('hutao_selected_admin', selectedAdminNumber);
-      localStorage.setItem('hutao_selected_admin_name', selectedAdminName);
-      recalcAllTotals(); // sinkronkan juga link stepper Money/Point/Skill
-    });
-  });
-
-  // pulihkan pilihan admin dari kunjungan sebelumnya (kalau ada)
-  const savedAdmin = localStorage.getItem('hutao_selected_admin');
-  const savedAdminName = localStorage.getItem('hutao_selected_admin_name');
-  if(savedAdmin){
-    selectedAdminNumber = savedAdmin;
-    selectedAdminName = savedAdminName || selectedAdminName;
-    adminCards.forEach(c => {
-      c.classList.toggle('active', c.getAttribute('data-admin-number') === savedAdmin);
-    });
-    selectedAdminLabel.textContent = selectedAdminName;
-  }
-
-  updateWaLinks();
-
-  // ---------- stepper Money / Point / Skill (pakai admin terpilih) ----------
+  // ---------- stepper Money / Point / Skill: hitung total & simpan teks pesan ----------
   const stepperConfig = {
     money: { unitPrice: 5000, unitLabel: 'Rp100rb', itemName: 'Money' },
     point: { unitPrice: 1000, unitLabel: '20 Point', itemName: 'Point' },
@@ -353,7 +330,7 @@
     const total = cfg.unitPrice * qty[key];
     document.getElementById(`${key}-total`).textContent = formatRupiah(total);
     const text = encodeURIComponent(`Halo Admin, saya mau top up ${qty[key]}x ${cfg.itemName} (${formatRupiah(total)}) IGN: `);
-    document.getElementById(`${key}-link`).href = `https://wa.me/${selectedAdminNumber}?text=${text}`;
+    document.getElementById(`${key}-link`).setAttribute('data-wa-text', text);
   }
 
   function recalcAllTotals(){
@@ -367,6 +344,45 @@
   }
 
   recalcAllTotals();
+
+  // ---------- modal pemilihan admin: muncul setiap kali tombol "Beli/Pesan via WhatsApp" diklik ----------
+  const adminModalOverlay = document.getElementById('adminModalOverlay');
+  const adminModalClose = document.getElementById('adminModalClose');
+  let pendingWaText = '';
+
+  function openAdminModal(waText){
+    pendingWaText = waText;
+    adminModalOverlay.classList.add('open');
+  }
+
+  function closeAdminModal(){
+    adminModalOverlay.classList.remove('open');
+    pendingWaText = '';
+  }
+
+  document.querySelectorAll('.wa-trigger').forEach(a => {
+    a.addEventListener('click', (e) => {
+      e.preventDefault();
+      const text = a.getAttribute('data-wa-text') || '';
+      openAdminModal(text);
+    });
+  });
+
+  adminModalOverlay.querySelectorAll('.admin-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const number = card.getAttribute('data-admin-number');
+      closeAdminModal();
+      window.open(`https://wa.me/${number}?text=${pendingWaText}`, '_blank', 'noopener');
+    });
+  });
+
+  adminModalClose.addEventListener('click', closeAdminModal);
+  adminModalOverlay.addEventListener('click', (e) => {
+    if(e.target === adminModalOverlay) closeAdminModal();
+  });
+  document.addEventListener('keydown', (e) => {
+    if(e.key === 'Escape') closeAdminModal();
+  });
 </script>
 </body>
 </html>
