@@ -29,4 +29,5 @@ asli Hu Tao SMP (rank, top up, leaderboard, rules).
 - Discord: discord.gg/TuKNkSFM5
 - TikTok: @hu.tao.smp
 
-Server IP: `hu-tao.nexuscloud.id` · Port: `25502`
+Server IP: `play.hutaosmp.my
+id` · Port: `25638`
