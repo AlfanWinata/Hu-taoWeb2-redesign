@@ -54,6 +54,30 @@
   .status-away{ color:#0a7ea6; }
   .status-offline .status-dot{ background:#B9C4C0; box-shadow:0 0 0 2px rgba(185,196,192,.3); }
   .status-offline{ color:var(--body-dim); }
+
+  /* ---------- Rank Custom card ---------- */
+  .custom-rank-card{ display:flex; flex-direction:column; }
+  .custom-rank-card .price-tag span{ font-size:12.5px; font-weight:600; color:var(--body-dim); display:block; margin-top:2px; }
+  .custom-rank-form{ margin-top:14px; text-align:left; }
+  .form-row{ margin-bottom:14px; }
+  .form-row label{
+    display:block; font-family:'Baloo 2',sans-serif; font-weight:700; font-size:12.5px;
+    color:var(--ink); margin-bottom:6px;
+  }
+  .cr-input{
+    width:100%; box-sizing:border-box; font-family:'Space Grotesk',sans-serif; font-size:13.5px;
+    padding:10px 12px; border:2px solid var(--ink); border-radius:10px; background:#fff; color:var(--ink);
+  }
+  .cr-input:focus{ outline:none; border-color:#B15CE0; }
+  .segmented{ display:flex; gap:8px; flex-wrap:wrap; }
+  .seg-btn{
+    flex:1; min-width:120px; font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:12.5px;
+    padding:9px 10px; border:2px solid var(--ink); border-radius:10px; background:#fff; color:var(--ink);
+    cursor:pointer; transition: all .15s ease;
+  }
+  .seg-btn:hover{ transform:translateY(-2px); }
+  .seg-btn.active{ background:#B15CE0; border-color:#8B3DBF; color:#fff; }
+  .cr-note{ font-size:11px; color:var(--body-dim); margin:10px 0 0; text-align:center; }
 </style>
 </head>
 <body>
@@ -190,6 +214,51 @@
         <li>Claim block & sethome unlimited</li>
       </ul>
       <a href="javascript:void(0)" class="buy-btn wa-trigger" data-wa-text="Halo%20Admin%2C%20saya%20mau%20beli%20rank%20Hu%20Tao%20(Rp300.000)%20IGN%3A%20">Beli via WhatsApp</a>
+    </div>
+
+    <!-- Rank Custom -->
+    <div class="price-card scroll-reveal custom-rank-card" style="transition-delay:.3s; border-color:#B15CE0; grid-column: 1 / -1;">
+      <div class="price-ribbon" style="background:#B15CE0;">Custom</div>
+      <div class="price-icon" style="background:linear-gradient(160deg,#E3B8FF,#B15CE0);">🎨</div>
+      <h3>Rank Custom</h3>
+      <div class="price-tag"><span>Di atas Hu Tao · Semua fasilitas Hu Tao + tampilan rank sesuai request</span></div>
+      <ul class="price-features">
+        <li>+ Semua fasilitas Hu Tao</li>
+        <li>Nama rank & warna bebas sesuai request</li>
+        <li>Hanya diproses oleh admin <b>Winata</b></li>
+      </ul>
+
+      <div class="custom-rank-form">
+        <div class="form-row">
+          <label>Platform</label>
+          <div class="segmented" id="crPlatform">
+            <button type="button" class="seg-btn active" data-value="Java">Java</button>
+            <button type="button" class="seg-btn" data-value="Bedrock">Bedrock</button>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <label for="crIgn">IGN (Nama Akun)</label>
+          <input type="text" id="crIgn" class="cr-input" placeholder="Contoh: HuTaoFans123">
+        </div>
+
+        <div class="form-row">
+          <label for="crRankName">Nama Rank yang Diinginkan</label>
+          <input type="text" id="crRankName" class="cr-input" placeholder="Contoh: [Legend]">
+        </div>
+
+        <div class="form-row">
+          <label>Tipe Rank</label>
+          <div class="segmented" id="crAnimasi">
+            <button type="button" class="seg-btn active" data-value="Animasi" data-price="549999">Animasi — Rp549.999</button>
+            <button type="button" class="seg-btn" data-value="Tanpa Animasi" data-price="524999">Tanpa Animasi — Rp524.999</button>
+          </div>
+        </div>
+
+        <div class="offer-total" style="margin-top:14px;">Total: <span id="crTotal">Rp549.999</span></div>
+        <a href="javascript:void(0)" id="crBuyBtn" class="buy-btn" style="background:#B15CE0; border-color:#8B3DBF;">Pesan Rank Custom ke Winata</a>
+        <p class="cr-note">Isi IGN & nama rank dulu sebelum memesan. Pesanan otomatis dikirim ke admin Winata via WhatsApp.</p>
+      </div>
     </div>
 
   </div>
@@ -382,6 +451,56 @@
   });
   document.addEventListener('keydown', (e) => {
     if(e.key === 'Escape') closeAdminModal();
+  });
+
+  // ---------- Rank Custom: platform, tipe animasi, total harga, & kirim ke Winata ----------
+  const WINATA_NUMBER = '6285766564830';
+  let crPlatformValue = 'Java';
+  let crAnimasiValue = 'Animasi';
+  let crAnimasiPrice = 549999;
+
+  const crPlatformBtns = document.querySelectorAll('#crPlatform .seg-btn');
+  const crAnimasiBtns = document.querySelectorAll('#crAnimasi .seg-btn');
+  const crTotalEl = document.getElementById('crTotal');
+  const crIgnEl = document.getElementById('crIgn');
+  const crRankNameEl = document.getElementById('crRankName');
+  const crBuyBtn = document.getElementById('crBuyBtn');
+
+  function formatRupiahCR(n){
+    return 'Rp' + n.toLocaleString('id-ID');
+  }
+
+  crPlatformBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      crPlatformBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      crPlatformValue = btn.getAttribute('data-value');
+    });
+  });
+
+  crAnimasiBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      crAnimasiBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      crAnimasiValue = btn.getAttribute('data-value');
+      crAnimasiPrice = parseInt(btn.getAttribute('data-price'), 10);
+      crTotalEl.textContent = formatRupiahCR(crAnimasiPrice);
+    });
+  });
+
+  crBuyBtn.addEventListener('click', () => {
+    const ign = crIgnEl.value.trim();
+    const rankName = crRankNameEl.value.trim();
+
+    if(!ign || !rankName){
+      alert('Mohon isi IGN dan Nama Rank yang diinginkan terlebih dahulu.');
+      if(!ign) crIgnEl.focus(); else crRankNameEl.focus();
+      return;
+    }
+
+    const message = `Halo Admin Winata, saya mau pesan Rank Custom.\nPlatform: ${crPlatformValue}\nIGN: ${ign}\nNama Rank: ${rankName}\nTipe: ${crAnimasiValue} (${formatRupiahCR(crAnimasiPrice)})`;
+    const encodedMessage = encodeURIComponent(message);
+    window.open(`https://wa.me/${WINATA_NUMBER}?text=${encodedMessage}`, '_blank', 'noopener');
   });
 </script>
 </body>
