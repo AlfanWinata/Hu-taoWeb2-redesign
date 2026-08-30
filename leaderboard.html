@@ -7,6 +7,16 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Baloo+2:wght@500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/style.css">
+<style>
+  .lb-live-badge{
+    display:inline-flex; align-items:center; gap:6px; font-family:'JetBrains Mono',monospace;
+    font-size:10.5px; font-weight:700; padding:4px 10px; border-radius:999px;
+    border:2px solid var(--ink); background:var(--card); color:var(--body-dim); margin-left:10px; vertical-align:middle;
+  }
+  .lb-live-badge .dot{ width:7px; height:7px; border-radius:50%; background:#B9C4C0; }
+  .lb-live-badge.is-live{ color:var(--green-2); border-color:var(--green-2); }
+  .lb-live-badge.is-live .dot{ background:var(--green); box-shadow:0 0 0 3px rgba(61,174,92,.22); }
+</style>
 </head>
 <body>
 
@@ -66,6 +76,8 @@
   <div class="lb-tabs reveal" style="animation-delay:.4s">
     <button class="tab-btn lb-tab-btn active" data-lb="lb-ceo">💰 Top CEO</button>
     <button class="tab-btn lb-tab-btn" data-lb="lb-kills">⚔️ Top Kills</button>
+    <button class="tab-btn lb-tab-btn" data-lb="lb-donasi">🎁 Top Donasi</button>
+    <button class="tab-btn lb-tab-btn" data-lb="lb-voter">🗳️ Top Voter</button>
   </div>
 
   <!-- Top CEO -->
@@ -79,6 +91,38 @@
   <div class="lb-panel store-panel" id="lb-kills">
     <div class="lb-list">
       <div class="lb-row top1"><div class="lb-rank">1</div><div class="lb-avatar"></div><div class="lb-name">Enterplay</div><div class="lb-value">210 Kill</div></div>
+    </div>
+  </div>
+
+  <!-- Top Donasi -->
+  <div class="lb-panel store-panel" id="lb-donasi">
+    <div class="lb-list">
+      <!-- Nama masih anonim — admin tinggal ganti manual sesuai data donasi asli -->
+      <div class="lb-row top1"><div class="lb-rank">1</div><div class="lb-avatar"></div><div class="lb-name">Donatur Anonim #1</div><div class="lb-value">Rp300.000</div></div>
+      <div class="lb-row"><div class="lb-rank">2</div><div class="lb-avatar"></div><div class="lb-name">Donatur Anonim #2</div><div class="lb-value">Rp150.000</div></div>
+      <div class="lb-row"><div class="lb-rank">3</div><div class="lb-avatar"></div><div class="lb-name">Donatur Anonim #3</div><div class="lb-value">Rp120.000</div></div>
+      <div class="lb-row"><div class="lb-rank">4</div><div class="lb-avatar"></div><div class="lb-name">Donatur Anonim #4</div><div class="lb-value">Rp65.000</div></div>
+      <div class="lb-row"><div class="lb-rank">5</div><div class="lb-avatar"></div><div class="lb-name">Donatur Anonim #5</div><div class="lb-value">Rp35.000</div></div>
+    </div>
+    <div class="store-note" style="margin-top:16px;">
+      Data Top Donasi diperbarui manual oleh admin berdasarkan total pembelian rank/top up tiap pemain di season berjalan.
+    </div>
+  </div>
+
+  <!-- Top Voter -->
+  <div class="lb-panel store-panel" id="lb-voter">
+    <div class="lb-list" id="voterList">
+      <!-- diisi otomatis lewat JS: real-time kalau VOTE_API_URL sudah diisi, demo kalau belum -->
+      <div class="lb-row top1"><div class="lb-rank">1</div><div class="lb-avatar"></div><div class="lb-name">Voter Anonim #1</div><div class="lb-value">42 Vote</div></div>
+      <div class="lb-row"><div class="lb-rank">2</div><div class="lb-avatar"></div><div class="lb-name">Voter Anonim #2</div><div class="lb-value">37 Vote</div></div>
+      <div class="lb-row"><div class="lb-rank">3</div><div class="lb-avatar"></div><div class="lb-name">Voter Anonim #3</div><div class="lb-value">29 Vote</div></div>
+      <div class="lb-row"><div class="lb-rank">4</div><div class="lb-avatar"></div><div class="lb-name">Voter Anonim #4</div><div class="lb-value">18 Vote</div></div>
+      <div class="lb-row"><div class="lb-rank">5</div><div class="lb-avatar"></div><div class="lb-name">Voter Anonim #5</div><div class="lb-value">11 Vote</div></div>
+    </div>
+    <div class="store-note" style="margin-top:16px;">
+      <span class="lb-live-badge" id="voterLiveBadge"><span class="dot"></span> <span id="voterLiveText">Mode Demo</span></span>
+      <br><br>
+      Total vote dihitung dari klik "⭐ Vote Server" di halaman Beranda. Begitu backend pencatat vote (Votifier) aktif, papan ini otomatis jadi real-time — tidak perlu ubah tampilan lagi.
     </div>
   </div>
 
@@ -145,6 +189,54 @@
       });
     });
   });
+
+  // ---------- Top Voter: real-time kalau VOTE_API_URL diisi, demo statis kalau kosong ----------
+  // Isi VOTE_API_URL dengan endpoint backend Votifier kamu (format sama seperti live chat:
+  // mengembalikan array JSON berisi { name, votes }, sudah terurut dari terbanyak).
+  // Contoh: 'https://hu-taoweb2-redesign-production.up.railway.app/votes'
+  const VOTE_API_URL = '';
+
+  const voterList = document.getElementById('voterList');
+  const voterLiveBadge = document.getElementById('voterLiveBadge');
+  const voterLiveText = document.getElementById('voterLiveText');
+
+  function renderVoterList(entries){
+    voterList.innerHTML = '';
+    entries.slice(0, 10).forEach((entry, i) => {
+      const row = document.createElement('div');
+      row.className = 'lb-row' + (i === 0 ? ' top1' : '');
+      row.innerHTML = `
+        <div class="lb-rank">${i + 1}</div>
+        <div class="lb-avatar"></div>
+        <div class="lb-name">${entry.name}</div>
+        <div class="lb-value">${entry.votes} Vote</div>`;
+      voterList.appendChild(row);
+    });
+  }
+
+  async function fetchVoterData(){
+    try{
+      const bustCache = VOTE_API_URL + (VOTE_API_URL.includes('?') ? '&' : '?') + 't=' + Date.now();
+      const res = await fetch(bustCache, { cache: 'no-store' });
+      if(!res.ok) throw new Error('bad response');
+      const data = await res.json();
+      renderVoterList(data);
+      voterLiveBadge.classList.add('is-live');
+      voterLiveText.textContent = 'Live · Data Vote Real-time';
+    } catch(err){
+      voterLiveBadge.classList.remove('is-live');
+      voterLiveText.textContent = 'Gagal memuat data real-time';
+    }
+  }
+
+  if(VOTE_API_URL){
+    voterLiveText.textContent = 'Menghubungkan…';
+    fetchVoterData();
+    setInterval(fetchVoterData, 30000);
+  } else {
+    voterLiveBadge.classList.remove('is-live');
+    voterLiveText.textContent = 'Mode Demo';
+  }
 </script>
 </body>
 </html>
