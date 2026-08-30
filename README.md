@@ -17,8 +17,7 @@ asli Hu Tao SMP (rank, top up, leaderboard, rules).
 ## Fitur yang ditambahkan dari desain baru
 
 - Status server live (via mcsrvstat.us) di beranda
-- Live chat panel (mode demo, bisa disambungkan ke Discord lewat
-  `discordsrv-chat-proxy/` atau `data/chat.json` + GitHub Actions)
+- Live chat panel
 - Halaman Wiki & FAQ untuk pemain baru
 - Halaman Fitur khusus
 - Kalkulator top up dengan stepper qty otomatis hitung total & link WhatsApp
