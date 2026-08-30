@@ -8,6 +8,14 @@
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Baloo+2:wght@500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/style.css">
 <style>
+  /* ---------- Font Minecraft resmi (dipakai untuk preview nama rank) ---------- */
+  @font-face{
+    font-family:'Minecraft';
+    src:url('assets/fonts/MinecraftBoldAlt.ttf') format('truetype');
+    font-weight:normal;
+    font-style:normal;
+    font-display:swap;
+  }
   /* ---------- Admin modal (opens on "Beli via WhatsApp" click) ---------- */
   .admin-modal-overlay{
     position:fixed; inset:0; background:rgba(20,30,25,.55); backdrop-filter:blur(2px);
@@ -79,6 +87,18 @@
   .seg-btn.active{ background:#B15CE0; border-color:#8B3DBF; color:#fff; }
   .cr-note{ font-size:11px; color:var(--body-dim); margin:10px 0 0; text-align:center; }
 
+  /* ---------- Fix: pastikan tombol beli custom-rank tidak ketimpa/menimpa elemen lain ---------- */
+  .custom-rank-card{ position:relative; }
+  .custom-rank-form{ position:relative; z-index:1; }
+  .custom-rank-form .buy-btn{
+    position:static !important;
+    display:block;
+    width:100%;
+    box-sizing:border-box;
+    transform:none !important;
+    margin-left:0; margin-right:0;
+  }
+
   /* ---------- Fitur (daftar info, semua otomatis termasuk) ---------- */
   .feature-toggle-grid{
     display:grid; grid-template-columns:repeat(auto-fill,minmax(170px,1fr)); gap:8px; margin-top:2px;
@@ -137,6 +157,7 @@
     display:flex; align-items:center; gap:10px; flex-wrap:wrap;
   }
   .cr-preview-tag{
+    font-family:'Minecraft', 'JetBrains Mono', monospace;
     font-weight:800; font-size:21px; display:inline-block; background-size:200% 100%;
     background-repeat:repeat; -webkit-background-clip:text; background-clip:text;
     -webkit-text-fill-color:transparent; color:transparent;
@@ -146,7 +167,7 @@
     0%{ background-position:0% 50%; }
     100%{ background-position:200% 50%; }
   }
-  .cr-preview-ign{ font-family:'JetBrains Mono',monospace; font-size:15px; font-weight:600; color:#E8E8E8; }
+  .cr-preview-ign{ font-family:'Minecraft', 'JetBrains Mono', monospace; font-size:15px; font-weight:600; color:#E8E8E8; }
   .cr-preview-note{ font-size:10.5px; color:var(--body-dim); margin-top:6px; text-align:center; }
 </style>
 </head>
@@ -291,11 +312,12 @@
       <div class="price-ribbon" style="background:#B15CE0;">Custom</div>
       <div class="price-icon" style="background:linear-gradient(160deg,#E3B8FF,#B15CE0);">🎨</div>
       <h3>Rank Custom</h3>
-      <div class="price-tag">Rp529.999 – Rp549.999 <span>Paket lengkap, semua fitur otomatis termasuk</span></div>
+      <div class="price-tag">Rp529.999 – Rp569.999 <span>Paket lengkap, semua fitur otomatis termasuk</span></div>
       <ul class="price-features">
-        <li>Semua fitur premium didapat otomatis: fly, enderchest, PV, dan semua fitur lain di bawah</li>
-        <li>Warna rank solid/gradient & font bebas, lihat preview langsung</li>
-        <li>Reward otomatis: 10x Spawner Key, 7x Mythic Key, 3x Legendary Key & Rp2.000.000 Money in-game</li>
+        <li>🔒 Eksklusif: PV 100 — jauh di atas rank manapun, cuma ada di Custom Rank</li>
+        <li>🎨 Nama, warna (solid/gradient/RGB), & gaya font rank 100% custom sesuai selera kamu</li>
+        <li>🔑 Bonus otomatis: 10x Spawner Key, 7x Mythic Key, 3x Legendary Key & Rp2.000.000 Money</li>
+        <li>+ Semua fasilitas rank Hu Tao tetap kamu dapat, plus semua keunggulan di atas</li>
         <li>Hanya diproses oleh admin <b>Winata</b></li>
       </ul>
 
@@ -353,19 +375,19 @@
         </div>
 
         <div class="form-row">
-          <label for="crFontSelect">Font Tampilan Rank</label>
-          <select id="crFontSelect" class="cr-input">
-            <option value="'Baloo 2', sans-serif">Baloo 2 — Bulat & Playful</option>
-            <option value="'Press Start 2P', monospace">Press Start 2P — Pixel Retro</option>
-            <option value="'Space Grotesk', sans-serif">Space Grotesk — Modern</option>
-            <option value="'JetBrains Mono', monospace">JetBrains Mono — Command Style</option>
-          </select>
+          <label>Gaya Font Rank</label>
+          <div class="segmented" id="crFontStyle">
+            <button type="button" class="seg-btn active" data-value="Default">Default Minecraft</button>
+            <button type="button" class="seg-btn" data-value="SmallText">Small Text</button>
+            <button type="button" class="seg-btn" data-value="FullWidth">Full Width</button>
+          </div>
+          <p class="cr-preview-note" style="margin:6px 0 0; text-align:left;">Preview di bawah pakai font Minecraft resmi. Contoh nama "sovereign" → Default: <b style="font-family:'Minecraft','JetBrains Mono',monospace;">sovereign</b> · Small Text: <b>ѕᴏᴠᴇʀɪɢɴ</b> · Full Width: <b>ｓｏｖｅｒｉｇｎ</b></p>
         </div>
 
         <div class="form-row">
           <label>Tipe Rank</label>
           <div class="segmented" id="crAnimasi">
-            <button type="button" class="seg-btn active" data-value="Animasi">Animasi (Rp549.999)</button>
+            <button type="button" class="seg-btn active" data-value="Animasi">Animasi (Rp569.999)</button>
             <button type="button" class="seg-btn" data-value="Tanpa Animasi">Tanpa Animasi (Rp529.999)</button>
           </div>
         </div>
@@ -376,7 +398,7 @@
             <span class="cr-preview-tag" id="crPreviewTag">[RankName]</span>
             <span class="cr-preview-ign" id="crPreviewIgn">PlayerIGN</span>
           </div>
-          <p class="cr-preview-note">Preview kasar tampilan nama rank kamu di chat/tab — warna, font & animasi mengikuti pilihan di atas.</p>
+          <p class="cr-preview-note">Preview kasar tampilan nama rank kamu di scoreboard/tab — warna, font & animasi mengikuti pilihan di atas.</p>
         </div>
 
         <div class="form-row">
@@ -385,7 +407,7 @@
         </div>
 
         <div class="cr-summary">
-          <div class="cr-summary-row total"><span>Total</span><span id="crTotal">Rp549.999</span></div>
+          <div class="cr-summary-row total"><span>Total</span><span id="crTotal">Rp569.999</span></div>
           <div class="cr-summary-row hint">Harga paket sudah termasuk semua fitur di atas. Key & Money adalah bonus otomatis, bukan dibeli terpisah.</div>
           <div id="crBonusBox">
             <span class="cr-key-badge">🔑 Bonus: <span id="crKeyText">10x Spawner Key + 7x Mythic Key + 3x Legendary Key</span></span>
@@ -597,7 +619,7 @@
   // ================= Rank Custom — paket lengkap harga fixed =================
   // Semua fitur otomatis termasuk. Angka di bawah gampang diubah kalau mau disesuaikan lagi.
   const CR_CONFIG = {
-    priceAnimasi: 549999,     // harga paket dengan Animasi
+    priceAnimasi: 569999,     // harga paket dengan Animasi
     priceNoAnimasi: 529999,   // harga paket Tanpa Animasi
     spawnerKey: 10,         // bonus Spawner Key
     mythicKey: 7,           // bonus Mythic Key
@@ -643,7 +665,8 @@
   const crColorFrom = document.getElementById('crColorFrom');
   const crColorMid = document.getElementById('crColorMid');
   const crColorTo = document.getElementById('crColorTo');
-  const crFontSelect = document.getElementById('crFontSelect');
+  const crFontStyleBtns = document.querySelectorAll('#crFontStyle .seg-btn');
+  let crFontStyleValue = 'Default';
   const crPreviewTag = document.getElementById('crPreviewTag');
   const crPreviewIgn = document.getElementById('crPreviewIgn');
   const CR_RGB_GRADIENT = 'linear-gradient(90deg, #ff003c, #ff8a00, #ffee00, #4dff00, #00fff2, #0066ff, #b300ff, #ff003c)';
@@ -693,16 +716,44 @@
   crColorFrom.addEventListener('input', crUpdatePreview);
   crColorMid.addEventListener('input', crUpdatePreview);
   crColorTo.addEventListener('input', crUpdatePreview);
-  crFontSelect.addEventListener('change', crUpdatePreview);
+  crFontStyleBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      crFontStyleBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      crFontStyleValue = btn.getAttribute('data-value');
+      crUpdatePreview();
+    });
+  });
   crRankNameEl.addEventListener('input', crUpdatePreview);
   crIgnEl.addEventListener('input', crUpdatePreview);
+
+  const CR_SMALLCAPS_MAP = {
+    a:'ᴀ', b:'ʙ', c:'ᴄ', d:'ᴅ', e:'ᴇ', f:'ꜰ', g:'ɢ', h:'ʜ', i:'ɪ', j:'ᴊ', k:'ᴋ', l:'ʟ', m:'ᴍ',
+    n:'ɴ', o:'ᴏ', p:'ᴘ', q:'ǫ', r:'ʀ', s:'ѕ', t:'ᴛ', u:'ᴜ', v:'ᴠ', w:'ᴡ', x:'x', y:'ʏ', z:'ᴢ'
+  };
+  function crToSmallText(str){
+    return str.split('').map(ch => CR_SMALLCAPS_MAP[ch.toLowerCase()] || ch).join('');
+  }
+  function crToFullWidth(str){
+    return str.split('').map(ch => {
+      if (ch === ' ') return '\u3000';
+      const code = ch.charCodeAt(0);
+      if (code >= 0x21 && code <= 0x7E) return String.fromCharCode(code + 0xFEE0);
+      return ch;
+    }).join('');
+  }
+  function crApplyFontStyle(str, style){
+    if (style === 'SmallText') return crToSmallText(str);
+    if (style === 'FullWidth') return crToFullWidth(str);
+    return str;
+  }
 
   function crUpdatePreview(){
     const name = crRankNameEl.value.trim() || 'RankName';
     const ign = crIgnEl.value.trim() || 'PlayerIGN';
-    crPreviewTag.textContent = `[${name}]`;
+    const styledName = crApplyFontStyle(name, crFontStyleValue);
+    crPreviewTag.textContent = `[${styledName}]`;
     crPreviewIgn.textContent = ign;
-    crPreviewTag.style.fontFamily = crFontSelect.value;
 
     let bgImage;
     if (crColorMode === 'Solid') {
@@ -752,7 +803,10 @@
       : crColorMode === 'Gradient'
         ? `Gradient (${crColorFrom.value.toUpperCase()} → ${crColorMid.value.toUpperCase()} → ${crColorTo.value.toUpperCase()})`
         : 'RGB (Rainbow otomatis)';
-    const fontLine = crFontSelect.options[crFontSelect.selectedIndex].text;
+    const fontStyleLabels = { Default: 'Default Minecraft', SmallText: 'Small Text', FullWidth: 'Full Width' };
+    const fontStyleLabel = fontStyleLabels[crFontStyleValue];
+    const styledName = crApplyFontStyle(rankName, crFontStyleValue);
+    const fontLine = `${fontStyleLabel} (${styledName})`;
     const rewardLine = `${r.spawnerKey}x Spawner Key + ${r.mythicKey}x Mythic Key + ${r.legendaryKey}x Legendary Key + ${formatRupiahCR(r.moneyReward)} Money`;
 
     const message = `Halo Admin Winata, saya mau pesan Rank Custom.
